@@ -1,6 +1,7 @@
 # 🐾 Vetify - Veteriner Kliniği Yönetim Sistemi
 
 Modern ve kullanıcı dostu bir veteriner kliniği yönetim sistemi. ASP.NET Core MVC ile geliştirilmiş, tam özellikli bir web uygulaması.
+
 NOT : Projenin amacı ; Katmanlı mimari mantığını tamamen oturtmak ve bunu ispatlamaktır. Herhangi bir şekilde projenin product ready olarak sunulması gibi bir durum söz konusu değildir. 
 İlerleyen zamanlarda product ready olacak şekilde güncellemeler devam edebilir.
 
