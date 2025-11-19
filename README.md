@@ -87,6 +87,18 @@ Vetify, veteriner kliniklerinin günlük operasyonlarını dijitalleştiren, mod
 - Son 30 gün tedavi sayısı
 - Güncel borç durumu
 - Son randevular listesi
+- **Gerçek Zamanlı Hava Durumu**
+  - Klinik konumu hava durumu
+  - Kullanıcı konumu hava durumu
+  - Sıcaklık ve hava durumu açıklaması
+- **Mesafe ve Süre Hesaplama**
+  - Kullanıcı konumundan kliniğe mesafe (km)
+  - Tahmini varış süresi
+  - Haversine formülü ile hassas hesaplama
+- **Güncel Döviz Kurları**
+  - USD/TRY kuru
+  - EUR/TRY kuru
+  - 3 saatlik önbellek sistemi
 
 #### 🐾 Hayvanlarım
 - Kendi hayvanlarını görüntüleme
@@ -138,6 +150,12 @@ Vetify, veteriner kliniklerinin günlük operasyonlarını dijitalleştiren, mod
 - **JavaScript (Vanilla)** - İstemci tarafı etkileşimler
 - **Razor View Engine** - Dinamik HTML oluşturma
 - **CSS3** - Özel stil düzenlemeleri
+
+### Entegre API Servisleri
+- **Met.no Weather API** - Gerçek zamanlı hava durumu verileri
+- **BigDataCloud Reverse Geocoding API** - Konum bilgisi ve şehir adları
+- **ExchangeRate API** - Güncel döviz kurları (USD, EUR)
+- **Geolocation API** - Kullanıcı konumu ve mesafe hesaplama
 
 ### Mimari ve Tasarım Desenleri
 - **N-Tier Architecture** (3 Katmanlı Mimari)
@@ -509,14 +527,82 @@ Bu proje MIT lisansı altında lisanslanmıştır. Detaylar için [LICENSE](LICE
 - GitHub: [@nullablege](https://github.com/nullablege)
 - Proje Linki: [https://github.com/nullablege/Vetify](https://github.com/nullablege/Vetify)
 
+## 🌐 API Entegrasyonları
+
+Proje, kullanıcı deneyimini zenginleştirmek için çeşitli üçüncü parti API'ler kullanmaktadır:
+
+### 🌤️ Met.no Weather API
+- **Amaç:** Gerçek zamanlı hava durumu verileri
+- **Kullanım:** Klinik ve kullanıcı konumu için hava durumu gösterimi
+- **Özellikler:**
+  - Sıcaklık bilgisi
+  - Hava durumu açıklaması (Açık, Bulutlu, Yağmurlu, vb.)
+  - 1 ve 6 saatlik tahminler
+- **Endpoint:** `https://api.met.no/weatherapi/locationforecast/2.0/compact`
+- **Önbellek:** 3 saat (Cookie tabanlı)
+
+### 📍 BigDataCloud Reverse Geocoding API
+- **Amaç:** Koordinatlardan şehir ve konum bilgisi alma
+- **Kullanım:** Kullanıcı ve klinik konumlarının şehir adlarını gösterme
+- **Özellikler:**
+  - Türkçe konum adları
+  - Şehir ve mahalle bilgisi
+  - Yüksek doğruluk oranı
+- **Endpoint:** `https://api.bigdatacloud.net/data/reverse-geocode-client`
+- **Önbellek:** 3 saat (Cookie tabanlı)
+
+### 💱 ExchangeRate API
+- **Amaç:** Güncel döviz kurları
+- **Kullanım:** Müşteri dashboard'unda USD ve EUR kurlarını gösterme
+- **Özellikler:**
+  - TRY bazlı döviz kurları
+  - Günlük güncelleme
+  - Otomatik kur hesaplama
+- **Endpoint:** `https://api.exchangerate-api.com/v4/latest/TRY`
+- **Önbellek:** 3 saat (Cookie tabanlı)
+
+### 🗺️ Geolocation API
+- **Amaç:** Kullanıcı konumu tespiti
+- **Kullanım:** Kliniğe olan mesafe ve tahmini varış süresini hesaplama
+- **Özellikler:**
+  - Haversine formülü ile hassas mesafe hesaplama
+  - Tahmini seyahat süresi (ortalama 20 km/saat)
+  - Kullanıcı izni ile konum erişimi
+- **Teknoloji:** Browser Geolocation API
+- **Önbellek:** 3 saat (Cookie tabanlı)
+
+### 🔧 API Yönetimi
+
+**Önbellek Stratejisi:**
+- Tüm API çağrıları cookie tabanlı önbellek kullanır
+- Önbellek süresi: 3 saat
+- Gereksiz API çağrılarını önler
+- Sayfa yüklenme hızını artırır
+
+**Hata Yönetimi:**
+- API hatalarında varsayılan değerler gösterilir
+- Console'da detaylı hata logları
+- Kullanıcı deneyimini kesintiye uğratmaz
+
+**Performans:**
+- Asenkron API çağrıları (async/await)
+- Paralel veri yükleme
+- Önbellek ile hızlı sayfa yükleme
+
 ## 🙏 Teşekkürler
 
-Bu projeyi geliştirirken kullanılan teknolojiler ve kütüphaneler:
+Bu projeyi geliştirirken kullanılan teknolojiler, kütüphaneler ve API servisleri:
 
+### Framework ve Kütüphaneler
 - [ASP.NET Core](https://docs.microsoft.com/aspnet/core)
 - [Entity Framework Core](https://docs.microsoft.com/ef/core)
 - [Bootstrap](https://getbootstrap.com/)
 - [Bootstrap Icons](https://icons.getbootstrap.com/)
+
+### API Servisleri
+- [Met.no Weather API](https://api.met.no/) - Hava durumu verileri
+- [BigDataCloud](https://www.bigdatacloud.com/) - Reverse geocoding
+- [ExchangeRate API](https://www.exchangerate-api.com/) - Döviz kurları
 
 ---
 
