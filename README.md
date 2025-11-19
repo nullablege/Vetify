@@ -1,6 +1,8 @@
 # 🐾 Vetify - Veteriner Kliniği Yönetim Sistemi
 
 Modern ve kullanıcı dostu bir veteriner kliniği yönetim sistemi. ASP.NET Core MVC ile geliştirilmiş, tam özellikli bir web uygulaması.
+NOT : Projenin amacı ; Katmanlı mimari mantığını tamamen oturtmak ve bunu ispatlamaktır. Herhangi bir şekilde projenin product ready olarak sunulması gibi bir durum söz konusu değildir. 
+İlerleyen zamanlarda product ready olacak şekilde güncellemeler devam edebilir.
 
 [![.NET](https://img.shields.io/badge/.NET-8.0-512BD4?style=flat&logo=dotnet)](https://dotnet.microsoft.com/)
 [![ASP.NET Core](https://img.shields.io/badge/ASP.NET%20Core-MVC-512BD4?style=flat)](https://docs.microsoft.com/aspnet/core)
@@ -604,8 +606,30 @@ Bu projeyi geliştirirken kullanılan teknolojiler, kütüphaneler ve API servis
 - [BigDataCloud](https://www.bigdatacloud.com/) - Reverse geocoding
 - [ExchangeRate API](https://www.exchangerate-api.com/) - Döviz kurları
 
+
 ---
+Görseller : 
+Kullanıcı Görselleri :
+<img width="1667" height="944" alt="Screenshot_87" src="https://github.com/user-attachments/assets/69f386b9-7501-49ab-884d-5e6907bc6b73" />
+<img width="1542" height="699" alt="Screenshot_86" src="https://github.com/user-attachments/assets/56e1b7db-b227-4882-a0b6-8d2f2a796de0" />
+<img width="1525" height="854" alt="Screenshot_85" src="https://github.com/user-attachments/assets/b8733f66-152a-4fe0-a16b-e5966b4c8f79" />
+<img width="1580" height="1014" alt="Screenshot_84" src="https://github.com/user-attachments/assets/6aa0f737-97f0-4fad-bb14-c0dd6aa0daf7" />
+<img width="1498" height="666" alt="Screenshot_83" src="https://github.com/user-attachments/assets/62b3c777-858f-420c-a81c-020114825ef2" />
+<img width="1568" height="1148" alt="Screenshot_82" src="https://github.com/user-attachments/assets/3cc25531-4b84-4b86-9bfd-3302633cc66e" />
+
+Yetkili Görselleri : 
+<img width="1664" height="803" alt="Screenshot_95" src="https://github.com/user-attachments/assets/984b6df3-9b22-4b91-83e7-4fb98b03a547" />
+<img width="1603" height="1027" alt="Screenshot_94" src="https://github.com/user-attachments/assets/ff2003b4-8036-4f9c-aa46-4f3fde3326f1" />
+<img width="1662" height="1181" alt="Screenshot_93" src="https://github.com/user-attachments/assets/10a42a80-dd7a-4e8d-b123-fb3e2ed33754" />
+<img width="1591" height="1200" alt="Screenshot_92" src="https://github.com/user-attachments/assets/48bbdb30-2b31-4b2d-8ee5-32a708b1f957" />
+<img width="1524" height="956" alt="Screenshot_91" src="https://github.com/user-attachments/assets/5d91cd25-5e5d-434e-af20-c146b16f2ac2" />
+<img width="1604" height="1193" alt="Screenshot_90" src="https://github.com/user-attachments/assets/27448e9b-985c-4159-8de7-d341a0cdbee9" />
+<img width="1635" height="707" alt="Screenshot_89" src="https://github.com/user-attachments/assets/31b95da2-b8d3-48f1-97fa-472735db997a" />
+<img width="1645" height="806" alt="Screenshot_88" src="https://github.com/user-attachments/assets/3374c9d9-46e1-4aa1-8bab-0d4e1bfa25bb" />
+
+
 
 ⭐ Bu projeyi beğendiyseniz yıldız vermeyi unutmayın!
+
 
 **Made with ❤️ by Ege Aytaç**
