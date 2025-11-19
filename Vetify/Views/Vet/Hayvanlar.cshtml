@@ -1,0 +1,122 @@
+﻿@using EL.Entities
+@model List<Hayvan>
+@{
+    ViewData["Title"] = "Hayvanlarim";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<main class="container-fluid px-4 py-4">
+    <!-- Page Header -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <h1 class="page-title mb-2">Hayvanlar</h1>
+            <p class="text-muted">Vetify dahilindeki tüm hayvanlar.</p>
+        </div>
+        <div class="col-md-6 text-md-end">
+            <a href="~/Vet/HayvanEkle" class="btn btn-primary btn-lg">
+                <i class="bi bi-plus-circle me-2"></i>Yeni Hayvan Ekle
+            </a>
+        </div>
+    </div>
+
+    <!-- Search and Filter Section -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card custom-card">
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="input-group">
+                                <span class="input-group-text bg-white"><i class="bi bi-search"></i></span>
+                                <input type="text" class="form-control" id="searchInput" placeholder="Hayvan adı ara...">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Animals Table -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card custom-card">
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        @if (TempData["Hata"] != null)
+                        {
+                            <div class="alert alert-danger text-center mt-1 mb-1"> @TempData["Hata"]</div>
+                        }
+                        @if (TempData["Mesaj"] != null)
+                        {
+                            <div class="alert alert-success text-center mt-1 mb-1"> @TempData["Mesaj"]</div>
+                        } 
+                        <table class="table table-hover align-middle mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Hayvan Adı</th>
+                                    <th>Sahibi</th>
+                                    <th>Tür</th>
+                                    <th>Cins</th>
+                                    <th>Yaş</th>
+                                    <th>Kilo</th>
+                                    <th style="width: 150px;">İşlemler</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var x in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="animal-avatar bg-primary-soft">
+                                                    <i class="bi bi-heart-fill text-primary"></i>
+                                                </div>
+                                                <strong>@x.Ad</strong>
+                                            </div>
+                                        </td>
+                                        <td>@x.Sahip.AdSoyad</td>
+                                        @if (x.Tur == "Köpek")
+                                        {
+                                            <td><span class="badge bg-primary">@x.Tur</span></td>
+                                        }
+                                        else if (x.Tur == "Kedi")
+                                        {
+                                            <td><span class="badge bg-info">@x.Tur</span></td>
+                                        }
+                                        else
+                                        {
+                                            <td><span class="badge bg-success">@x.Tur</span></td>
+                                        }
+                                    <td>@x.Cins</td>
+                                    <td>
+                                        @(x.DogumTarihi.HasValue
+                                                                                ? (DateTime.Now.Year - x.DogumTarihi.Value.Year) + " yaş"
+                                                                                : "Yaş bilgisi yok")
+                                    </td>
+                                    <td>@x.Kilo kg</td>
+                                    <td>
+                                        <div class="btn-group" role="group">
+                                            <a href="~/Vet/HayvanDetay/@x.Id" class="btn btn-sm btn-outline-primary" title="Detaylar">
+                                                <i class="bi bi-eye"></i>
+                                            </a>
+                                            <a href="~/Vet/HayvanDuzenle/@x.Id" class="btn btn-sm btn-outline-warning" title="Düzenle">
+                                                <i class="bi bi-pencil"></i>
+                                            </a>
+                                            <a  href="~/Vet/HayvanSil/@x.Id" class="btn btn-sm btn-outline-danger" title="Sil">
+                                                <i class="bi bi-trash"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+

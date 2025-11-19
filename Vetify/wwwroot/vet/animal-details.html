@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vetify - Hayvan Detayları</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+      <div class="container-fluid px-4">
+        <a class="navbar-brand d-flex align-items-center" href="index.html">
+          <i class="bi bi-heart-pulse-fill me-2 text-primary" style="font-size: 1.5rem;"></i>
+          <span class="fw-bold text-primary">Vetify</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Dashboard</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="animals.html">Hayvanlar</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="appointments.html">Randevular</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="treatments.html">Tedaviler</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="payments.html">Ödemeler</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
+                <i class="bi bi-person-circle me-1"></i>
+                <span>Dr. Ayşe Yılmaz</span>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2"></i>Profil</a></li>
+                <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i>Ayarlar</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item text-danger" href="login.html"><i class="bi bi-box-arrow-right me-2"></i>Çıkış Yap</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <main class="container-fluid px-4 py-4">
+      <div class="row mb-4">
+        <div class="col-12">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+              <li class="breadcrumb-item"><a href="animals.html">Hayvanlar</a></li>
+              <li class="breadcrumb-item active">Max</li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-lg-4">
+          <div class="card custom-card">
+            <div class="card-body text-center">
+              <div class="animal-avatar-large bg-primary-soft mx-auto mb-3">
+                <i class="bi bi-heart-fill text-primary"></i>
+              </div>
+              <h3 class="mb-1">Max</h3>
+              <p class="text-muted mb-3">Golden Retriever</p>
+              <span class="badge bg-primary mb-4">Köpek</span>
+
+              <div class="d-grid gap-2">
+                <a href="animal-edit.html" class="btn btn-outline-primary">
+                  <i class="bi bi-pencil me-1"></i>Bilgileri Düzenle
+                </a>
+                <a href="appointment-create.html" class="btn btn-primary">
+                  <i class="bi bi-calendar-plus me-1"></i>Randevu Oluştur
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="card custom-card mt-4">
+            <div class="card-header">
+              <h5 class="card-title mb-0">Genel Bilgiler</h5>
+            </div>
+            <div class="card-body">
+              <div class="info-item">
+                <i class="bi bi-person-fill text-primary"></i>
+                <div>
+                  <p class="info-label">Sahip</p>
+                  <p class="info-value">Zeynep Kaya</p>
+                </div>
+              </div>
+              <div class="info-item">
+                <i class="bi bi-calendar-event text-success"></i>
+                <div>
+                  <p class="info-label">Yaş</p>
+                  <p class="info-value">5 yaş</p>
+                </div>
+              </div>
+              <div class="info-item">
+                <i class="bi bi-speedometer2 text-info"></i>
+                <div>
+                  <p class="info-label">Kilo</p>
+                  <p class="info-value">32 kg</p>
+                </div>
+              </div>
+              <div class="info-item">
+                <i class="bi bi-gender-ambiguous text-warning"></i>
+                <div>
+                  <p class="info-label">Cinsiyet</p>
+                  <p class="info-value">Erkek</p>
+                </div>
+              </div>
+              <div class="info-item">
+                <i class="bi bi-palette text-danger"></i>
+                <div>
+                  <p class="info-label">Renk</p>
+                  <p class="info-value">Altın Sarısı</p>
+                </div>
+              </div>
+              <div class="info-item">
+                <i class="bi bi-calendar-check text-secondary"></i>
+                <div>
+                  <p class="info-label">Kayıt Tarihi</p>
+                  <p class="info-value">12 Ocak 2023</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-8">
+          <div class="card custom-card mb-4">
+            <div class="card-header">
+              <h5 class="card-title mb-0">Tıbbi Geçmiş</h5>
+            </div>
+            <div class="card-body">
+              <p class="mb-0">Tüm aşıları tam. 2022 yılında kalça displazisi teşhisi konuldu, düzenli kontrol altında. Tahıl içermeyen mama ile beslenmelidir.</p>
+            </div>
+          </div>
+
+          <div class="card custom-card mb-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+              <h5 class="card-title mb-0">Randevu Geçmişi</h5>
+              <span class="badge bg-light text-dark">Toplam 12 Randevu</span>
+            </div>
+            <div class="card-body p-0">
+              <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                  <thead>
+                    <tr>
+                      <th>Tarih</th>
+                      <th>Saat</th>
+                      <th>Durum</th>
+                      <th>Notlar</th>
+                      <th>İşlemler</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>15 Mart 2024</td>
+                      <td><span class="badge bg-light text-dark">14:30</span></td>
+                      <td><span class="badge bg-success">Tamamlandı</span></td>
+                      <td>Rutin kontrol ve aşı</td>
+                      <td>
+                        <a href="appointment-details.html" class="btn btn-sm btn-icon">
+                          <i class="bi bi-eye"></i>
+                        </a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>20 Şubat 2024</td>
+                      <td><span class="badge bg-light text-dark">10:00</span></td>
+                      <td><span class="badge bg-success">Tamamlandı</span></td>
+                      <td>Kalça displazisi kontrolü</td>
+                      <td>
+                        <a href="appointment-details.html" class="btn btn-sm btn-icon">
+                          <i class="bi bi-eye"></i>
+                        </a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>10 Ocak 2024</td>
+                      <td><span class="badge bg-light text-dark">11:30</span></td>
+                      <td><span class="badge bg-success">Tamamlandı</span></td>
+                      <td>Diş temizliği</td>
+                      <td>
+                        <a href="appointment-details.html" class="btn btn-sm btn-icon">
+                          <i class="bi bi-eye"></i>
+                        </a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>05 Aralık 2023</td>
+                      <td><span class="badge bg-light text-dark">15:00</span></td>
+                      <td><span class="badge bg-success">Tamamlandı</span></td>
+                      <td>Grip semptomları kontrolü</td>
+                      <td>
+                        <a href="appointment-details.html" class="btn btn-sm btn-icon">
+                          <i class="bi bi-eye"></i>
+                        </a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>15 Kasım 2023</td>
+                      <td><span class="badge bg-light text-dark">09:30</span></td>
+                      <td><span class="badge bg-success">Tamamlandı</span></td>
+                      <td>Yıllık genel kontrol</td>
+                      <td>
+                        <a href="appointment-details.html" class="btn btn-sm btn-icon">
+                          <i class="bi bi-eye"></i>
+                        </a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="card-footer bg-white text-center">
+              <a href="appointments.html" class="text-primary text-decoration-none">
+                Tüm Randevuları Görüntüle <i class="bi bi-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+
+          <div class="row g-4">
+            <div class="col-md-6">
+              <div class="card custom-card">
+                <div class="card-header">
+                  <h5 class="card-title mb-0">Tedavi Özeti</h5>
+                </div>
+                <div class="card-body">
+                  <div class="stat-item-small">
+                    <i class="bi bi-bandaid-fill text-primary"></i>
+                    <div>
+                      <h4 class="mb-0">18</h4>
+                      <p class="text-muted small mb-0">Toplam Tedavi</p>
+                    </div>
+                  </div>
+                  <div class="stat-item-small">
+                    <i class="bi bi-calendar-check-fill text-success"></i>
+                    <div>
+                      <h4 class="mb-0">12</h4>
+                      <p class="text-muted small mb-0">Tamamlanan Randevu</p>
+                    </div>
+                  </div>
+                  <div class="stat-item-small">
+                    <i class="bi bi-clock-history text-warning"></i>
+                    <div>
+                      <h4 class="mb-0">1</h4>
+                      <p class="text-muted small mb-0">Yaklaşan Randevu</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="card custom-card">
+                <div class="card-header">
+                  <h5 class="card-title mb-0">Ödeme Özeti</h5>
+                </div>
+                <div class="card-body">
+                  <div class="stat-item-small">
+                    <i class="bi bi-currency-dollar text-success"></i>
+                    <div>
+                      <h4 class="mb-0">₺3,450</h4>
+                      <p class="text-muted small mb-0">Toplam Ödenen</p>
+                    </div>
+                  </div>
+                  <div class="stat-item-small">
+                    <i class="bi bi-wallet2 text-info"></i>
+                    <div>
+                      <h4 class="mb-0">₺3,750</h4>
+                      <p class="text-muted small mb-0">Toplam Tutar</p>
+                    </div>
+                  </div>
+                  <div class="stat-item-small">
+                    <i class="bi bi-exclamation-circle-fill text-warning"></i>
+                    <div>
+                      <h4 class="mb-0">₺300</h4>
+                      <p class="text-muted small mb-0">Kalan Borç</p>
+                    </div>
+                  </div>
+                  <div class="mt-3">
+                    <a href="payments.html" class="btn btn-sm btn-outline-primary w-100">
+                      Ödeme Detayları
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

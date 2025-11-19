@@ -1,0 +1,239 @@
+﻿@using Vetify.Models.ViewModel
+@model HayvanDetayViewModel
+
+@{
+    ViewData["Title"] = "HayvanDetay";
+    Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+}
+
+<main class="container-fluid px-4 py-4">
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="~/Customer/Index">Anasayfa</a></li>
+            <li class="breadcrumb-item"><a href="~/Customer/Hayvanlarim">Hayvanlarım</a></li>
+            <li class="breadcrumb-item active">@Model.HayvanAd</li>
+        </ol>
+    </nav>
+
+    <div class="row g-4">
+        <!-- Left Column: Animal Info -->
+        <div class="col-lg-4">
+            <!-- Animal Avatar and Basic Info -->
+            <div class="card custom-card">
+                <div class="card-body text-center">
+                    <div class="animal-avatar-large bg-primary-soft mx-auto mb-3">
+                        <i class="bi bi-heart-fill text-primary"></i>
+                    </div>
+                    <h3 class="mb-1">@Model.HayvanAd</h3>
+                    <p class="text-muted mb-3">@Model.HayvanCins</p>
+                    <span class="badge bg-primary mb-4">@Model.HayvanTur</span>
+
+                    <div class="d-grid gap-2">
+                        <a href="~/Customer/RandevuAl" class="btn btn-primary">
+                            <i class="bi bi-calendar-plus me-1"></i>Randevu Al
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- General Information Card -->
+            <div class="card custom-card mt-4">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Genel Bilgiler</h5>
+                </div>
+                <div class="card-body">
+                    <div class="info-item">
+                        <i class="bi bi-calendar-event text-success"></i>
+                        <div>
+                            <p class="info-label">Yaş</p>
+                            <p class="info-value">@Model.HayvanYas yaş</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="bi bi-speedometer2 text-info"></i>
+                        <div>
+                            <p class="info-label">Kilo</p>
+                            <p class="info-value">@Model.HayvanKilo kg</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="bi bi-tag text-primary"></i>
+                        <div>
+                            <p class="info-label">Cins</p>
+                            <p class="info-value">@Model.HayvanCins</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="bi bi-calendar-check text-secondary"></i>
+                        <div>
+                            <p class="info-label">Kayıt Tarihi</p>
+                            <p class="info-value">@Model.KayitTarihi</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Column: Details -->
+        <div class="col-lg-8">
+            <!-- Past Appointments Section -->
+            <div class="card custom-card mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="card-title mb-0">Geçmiş Randevular</h5>
+                    <span class="badge bg-light text-dark">@Model.Randevular.Count Randevu</span>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Tarih</th>
+                                    <th>Saat</th>
+                                    <th>Durum</th>
+                                    <th>Notlar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var x in Model.Randevular)
+                                {
+                                    <tr>
+                                        <td>@x.RandevuZamani.ToString("D")</td>
+                                        <td><span class="badge bg-light text-dark">14:00</span></td>
+                                        @if (x.Durum == EL.Enums.RandevuDurum.Tamamlandi)
+                                        {
+                                            <td><span class="badge bg-success">@x.Durum</span></td>
+                                        }
+                                        else if (x.Durum == EL.Enums.RandevuDurum.Onaylandi)
+                                        {
+                                            <td><span class="badge bg-info">@x.Durum</span></td>
+                                        }
+                                        else if (x.Durum == EL.Enums.RandevuDurum.IptalEdildi)
+                                        {
+                                            <td><span class="badge bg-danger">@x.Durum</span></td>
+                                        }
+                                        else
+                                        {
+                                            <td><span class="badge bg-secondary">@x.Durum</span></td>
+                                        }
+                                        <td>@x.Notlar</td>
+
+                                        <td>@x.Notlar</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Past Treatments Section -->
+            <div class="card custom-card mb-4">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Geçmiş Tedaviler</h5>
+                </div>
+                <div class="card-body">
+                    <!-- Treatment Card 1 -->
+                    @foreach (var x in Model.Tedaviler)
+                    {
+                        <div class="card mb-3 border">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col-md-2">
+                                        <div class="text-center">
+                                            <div class="stat-icon bg-success-soft mx-auto mb-2">
+                                                <i class="bi bi-bandaid text-success"></i>
+                                            </div>
+                                            <small class="text-muted">@x.TedaviTarihi</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h6 class="mb-1">@x.TedaviTuru</h6>
+                                        <p class="text-muted mb-1">@x.Aciklama</p>
+                                        <small class="text-muted">Randevu: #@x.Id - @x.TedaviTarihi.ToString(" dd.MM.yyyy HH.mm ")</small>
+                                    </div>
+                                    <div class="col-md-4 text-md-end">
+                                        <h5 class="text-primary mb-0">₺@x.Ucret</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+
+                </div>
+            </div>
+
+            <!-- Payment Summary Section -->
+            <div class="row g-4 mb-4">
+                <div class="col-md-6">
+                    <div class="card custom-card h-100">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <div>
+                                    <h6 class="text-muted mb-1">Toplam Ödeme</h6>
+                                    <h3 class="text-success mb-0">₺@Model.ToplamOdeme</h3>
+                                </div>
+                                <div class="stat-icon bg-success-soft">
+                                    <i class="bi bi-check-circle text-success"></i>
+                                </div>
+                            </div>
+                            <p class="text-muted small mb-0">@Model.HayvanAd için yapılan toplam ödeme tutarı</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card custom-card h-100 @(Model.KalanBorc == 0 ? "border-success" : "border-warning") ">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <div>
+                                    <h6 class="text-warning mb-1">Kalan Borç</h6>
+                                    <h3 class="text-warning mb-0">₺@Model.KalanBorc</h3>
+                                </div>
+                                <div class="stat-icon bg-warning-soft">
+                                    <i class="bi bi-exclamation-circle text-warning"></i>
+                                </div>
+                            </div>
+                            @if(Model.KalanBorc == 0)
+                            {
+                                <p class="text-success small mb-0">Tebrikler ! Hiç borcunuz yok.</p>
+                            }
+                            else
+                            {
+                                <p class="text-muted small mb-0">Ödenmesi gereken tutar</p>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Health History Section -->
+            <div class="card custom-card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Sağlık Geçmişi</h5>
+                </div>
+                <div class="card-body">
+                    <!-- Health Record 1 -->
+                    @foreach( var x in Model.SaglikGecmisi)
+                    {
+                        <div class="d-flex mb-3 pb-3 border-bottom">
+                            <div class="me-3">
+                                <div class="stat-icon bg-info-soft">
+                                    <i class="bi bi-clipboard-pulse text-info"></i>
+                                </div>
+                            </div>
+                            <div class="flex-grow-1">
+                                <div class="d-flex justify-content-between align-items-start mb-1">
+                                    <h6 class="mb-1">@x.KayitTuru</h6>
+                                    <small class="text-muted">@x.KayitTarihi.ToString("D") </small>
+                                </div>
+                                <p class="text-muted mb-0">@x.Aciklama Sonraki kontrol : @x.SonrakiKontrolTarihi?.ToString("D") </p>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+

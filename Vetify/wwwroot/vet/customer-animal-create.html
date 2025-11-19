@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vetify - Yeni Hayvan Ekle</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Customer Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+        <div class="container-fluid px-4">
+            <a class="navbar-brand d-flex align-items-center" href="customer-dashboard.html">
+                <i class="bi bi-heart-pulse-fill me-2 text-primary" style="font-size: 1.5rem;"></i>
+                <span class="fw-bold text-primary">Vetify</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="customer-dashboard.html">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="customer-animals.html">Hayvanlarım</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="customer-appointments.html">Randevularım</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="customer-treatments.html">Tedavilerim</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="customer-payments.html">Ödemelerim</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-person-circle me-1"></i>
+                            <span>Ahmet Yılmaz</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="customer-profile.html"><i class="bi bi-person me-2"></i>Profil</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item text-danger" href="login.html"><i class="bi bi-box-arrow-right me-2"></i>Çıkış Yap</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container-fluid px-4 py-4">
+        <!-- Page Header -->
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <h1 class="page-title mb-2">Yeni Hayvan Ekle</h1>
+                <p class="text-muted">Hayvanınızın bilgilerini girerek kayıt oluşturun</p>
+            </div>
+            <div class="col-md-6 text-md-end">
+                <a href="customer-animals.html" class="btn btn-outline-secondary btn-lg">
+                    <i class="bi bi-arrow-left me-2"></i>Geri Dön
+                </a>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <!-- Success Message (Hidden by default) -->
+                <div class="alert alert-success alert-dismissible fade" role="alert" id="successMessage" style="display: none;">
+                    <i class="bi bi-check-circle me-2"></i>
+                    <strong>Başarılı!</strong> Hayvan kaydı başarıyla oluşturuldu.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+
+                <!-- Animal Create Form -->
+                <div class="card custom-card">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">
+                            <i class="bi bi-heart-fill me-2 text-primary"></i>Hayvan Bilgileri
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <form id="customerAnimalCreateForm" novalidate>
+                            <div class="row g-3">
+                                <!-- Animal Name -->
+                                <div class="col-md-6">
+                                    <label for="animalName" class="form-label">
+                                        Hayvan Adı <span class="text-danger">*</span>
+                                    </label>
+                                    <input type="text" 
+                                           class="form-control form-control-lg" 
+                                           id="animalName" 
+                                           name="animalName"
+                                           placeholder="Örn: Max, Luna" 
+                                           required
+                                           minlength="2"
+                                           maxlength="50">
+                                    <div class="invalid-feedback">
+                                        Lütfen hayvan adını girin (en az 2 karakter).
+                                    </div>
+                                </div>
+
+                                <!-- Species -->
+                                <div class="col-md-6">
+                                    <label for="species" class="form-label">
+                                        Tür <span class="text-danger">*</span>
+                                    </label>
+                                    <select class="form-select form-select-lg" 
+                                            id="species" 
+                                            name="species"
+                                            required>
+                                        <option value="">Tür seçin...</option>
+                                        <option value="Köpek">Köpek</option>
+                                        <option value="Kedi">Kedi</option>
+                                        <option value="Kuş">Kuş</option>
+                                        <option value="Tavşan">Tavşan</option>
+                                        <option value="Hamster">Hamster</option>
+                                        <option value="Diğer">Diğer</option>
+                                    </select>
+                                    <div class="invalid-feedback">
+                                        Lütfen hayvan türünü seçin.
+                                    </div>
+                                </div>
+
+                                <!-- Breed -->
+                                <div class="col-md-6">
+                                    <label for="breed" class="form-label">
+                                        Cins <span class="text-danger">*</span>
+                                    </label>
+                                    <input type="text" 
+                                           class="form-control form-control-lg" 
+                                           id="breed" 
+                                           name="breed"
+                                           placeholder="Örn: Golden Retriever, Van" 
+                                           required
+                                           minlength="2"
+                                           maxlength="50">
+                                    <div class="invalid-feedback">
+                                        Lütfen hayvan cinsini girin (en az 2 karakter).
+                                    </div>
+                                </div>
+
+                                <!-- Age -->
+                                <div class="col-md-6">
+                                    <label for="age" class="form-label">
+                                        Yaş <span class="text-danger">*</span>
+                                    </label>
+                                    <div class="input-group input-group-lg">
+                                        <input type="number" 
+                                               class="form-control" 
+                                               id="age" 
+                                               name="age"
+                                               placeholder="Örn: 5" 
+                                               required
+                                               min="0"
+                                               max="50"
+                                               step="1">
+                                        <span class="input-group-text">yaş</span>
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Lütfen geçerli bir yaş girin (0-50 arası).
+                                    </div>
+                                </div>
+
+                                <!-- Weight -->
+                                <div class="col-md-6">
+                                    <label for="weight" class="form-label">
+                                        Kilo <span class="text-danger">*</span>
+                                    </label>
+                                    <div class="input-group input-group-lg">
+                                        <input type="number" 
+                                               class="form-control" 
+                                               id="weight" 
+                                               name="weight"
+                                               placeholder="Örn: 32" 
+                                               required
+                                               min="0.1"
+                                               max="200"
+                                               step="0.1">
+                                        <span class="input-group-text">kg</span>
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Lütfen geçerli bir kilo girin (0.1-200 kg arası).
+                                    </div>
+                                </div>
+
+                                <!-- Additional Notes (Optional) -->
+                                <div class="col-12">
+                                    <label for="notes" class="form-label">
+                                        Notlar <span class="text-muted">(Opsiyonel)</span>
+                                    </label>
+                                    <textarea class="form-control" 
+                                              id="notes" 
+                                              name="notes"
+                                              rows="3" 
+                                              placeholder="Hayvanınız hakkında ek bilgiler..."></textarea>
+                                </div>
+                            </div>
+
+                            <!-- Form Actions -->
+                            <div class="d-flex gap-2 mt-4">
+                                <button type="submit" class="btn btn-primary btn-lg flex-grow-1">
+                                    <i class="bi bi-check-circle me-2"></i>Hayvan Ekle
+                                </button>
+                                <a href="customer-animals.html" class="btn btn-outline-secondary btn-lg">
+                                    <i class="bi bi-x-circle me-2"></i>İptal
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Info Card -->
+                <div class="card custom-card mt-4 border-info">
+                    <div class="card-body">
+                        <div class="d-flex">
+                            <div class="me-3">
+                                <i class="bi bi-info-circle text-info" style="font-size: 1.5rem;"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-2">Bilgilendirme</h6>
+                                <p class="text-muted mb-0 small">
+                                    Hayvanınızı kaydettikten sonra randevu oluşturabilir, tedavi geçmişini takip edebilir 
+                                    ve sağlık kayıtlarını görüntüleyebilirsiniz. Tüm alanların doğru doldurulduğundan emin olun.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

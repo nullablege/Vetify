@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vetify - Hayvanlar</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+      <div class="container-fluid px-4">
+        <a class="navbar-brand d-flex align-items-center" href="index.html">
+          <i class="bi bi-heart-pulse-fill me-2 text-primary" style="font-size: 1.5rem;"></i>
+          <span class="fw-bold text-primary">Vetify</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Dashboard</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="animals.html">Hayvanlar</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="appointments.html">Randevular</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="treatments.html">Tedaviler</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="payments.html">Ödemeler</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
+                <i class="bi bi-person-circle me-1"></i>
+                <span>Dr. Ayşe Yılmaz</span>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2"></i>Profil</a></li>
+                <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i>Ayarlar</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item text-danger" href="login.html"><i class="bi bi-box-arrow-right me-2"></i>Çıkış Yap</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <main class="container-fluid px-4 py-4">
+      <div class="row mb-4">
+        <div class="col-md-6">
+          <h1 class="page-title mb-2">Hayvan Yönetimi</h1>
+          <p class="text-muted">Klinik kayıtlı tüm hayvanları görüntüleyin ve yönetin</p>
+        </div>
+        <div class="col-md-6 text-md-end">
+          <a href="animal-create.html" class="btn btn-primary btn-lg">
+            <i class="bi bi-plus-circle me-2"></i>Yeni Hayvan Ekle
+          </a>
+        </div>
+      </div>
+
+      <div class="row mb-4">
+        <div class="col-12">
+          <div class="card custom-card">
+            <div class="card-body">
+              <div class="row g-3">
+                <div class="col-md-4">
+                  <div class="input-group">
+                    <span class="input-group-text bg-white"><i class="bi bi-search"></i></span>
+                    <input type="text" class="form-control" id="searchInput" placeholder="Hayvan adı, sahip veya cins ara...">
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <select class="form-select" id="speciesFilter">
+                    <option value="">Tüm Türler</option>
+                    <option value="dog">Köpek</option>
+                    <option value="cat">Kedi</option>
+                  </select>
+                </div>
+                <div class="col-md-2">
+                  <select class="form-select" id="ageFilter">
+                    <option value="">Tüm Yaşlar</option>
+                    <option value="young">0-2 Yaş</option>
+                    <option value="adult">3-7 Yaş</option>
+                    <option value="senior">8+ Yaş</option>
+                  </select>
+                </div>
+                <div class="col-md-4 text-md-end">
+                  <button class="btn btn-outline-secondary" id="resetFilters">
+                    <i class="bi bi-arrow-clockwise me-1"></i>Filtreleri Temizle
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <div class="card custom-card">
+            <div class="card-body p-0">
+              <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                  <thead>
+                    <tr>
+                      <th style="width: 50px;">#</th>
+                      <th>Hayvan Adı</th>
+                      <th>Sahip</th>
+                      <th>Tür</th>
+                      <th>Cins</th>
+                      <th>Yaş</th>
+                      <th>Kilo</th>
+                      <th>Kayıt Tarihi</th>
+                      <th style="width: 150px;">İşlemler</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><span class="text-muted">#001</span></td>
+                      <td>
+                        <div class="d-flex align-items-center">
+                          <div class="animal-avatar bg-primary-soft">
+                            <i class="bi bi-heart-fill text-primary"></i>
+                          </div>
+                          <strong>Max</strong>
+                        </div>
+                      </td>
+                      <td>Zeynep Kaya</td>
+                      <td><span class="badge bg-primary">Köpek</span></td>
+                      <td>Golden Retriever</td>
+                      <td>5 yaş</td>
+                      <td>32 kg</td>
+                      <td>12.01.2023</td>
+                      <td>
+                        <div class="btn-group" role="group">
+                          <a href="animal-details.html" class="btn btn-sm btn-outline-primary" title="Detaylar">
+                            <i class="bi bi-eye"></i>
+                          </a>
+                          <a href="animal-edit.html" class="btn btn-sm btn-outline-warning" title="Düzenle">
+                            <i class="bi bi-pencil"></i>
+                          </a>
+                          <button class="btn btn-sm btn-outline-danger" title="Sil">
+                            <i class="bi bi-trash"></i>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><span class="text-muted">#002</span></td>
+                      <td>
+                        <div class="d-flex align-items-center">
+                          <div class="animal-avatar bg-warning-soft">
+                            <i class="bi bi-heart-fill text-warning"></i>
+                          </div>
+                          <strong>Minnoş</strong>
+                        </div>
+                      </td>
+                      <td>Mehmet Demir</td>
+                      <td><span class="badge bg-warning">Kedi</span></td>
+                      <td>Tekir</td>
+                      <td>3 yaş</td>
+                      <td>4.5 kg</td>
+                      <td>25.02.2023</td>
+                      <td>
+                        <div class="btn-group" role="group">
+                          <a href="animal-details.html" class="btn btn-sm btn-outline-primary" title="Detaylar">
+                            <i class="bi bi-eye"></i>
+                          </a>
+                          <a href="animal-edit.html" class="btn btn-sm btn-outline-warning" title="Düzenle">
+                            <i class="bi bi-pencil"></i>
+                          </a>
+                          <button class="btn btn-sm btn-outline-danger" title="Sil">
+                            <i class="bi bi-trash"></i>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><span class="text-muted">#003</span></td>
+                      <td>
+                        <div class="d-flex align-items-center">
+                          <div class="animal-avatar bg-warning-soft">
+                            <i class="bi bi-heart-fill text-warning"></i>
+                          </div>
+                          <strong>Luna</strong>
+                        </div>
+                      </td>
+                      <td>Ali Yılmaz</td>
+                      <td><span class="badge bg-warning">Kedi</span></td>
+                      <td>Van</td>
+                      <td>2 yaş</td>
+                      <td>3.8 kg</td>
+                      <td>10.03.2023</td>
+                      <td>
+                        <div class="btn-group" role="group">
+                          <a href="animal-details.html" class="btn btn-sm btn-outline-primary" title="Detaylar">
+                            <i class="bi bi-eye"></i>
+                          </a>
+                          <a href="animal-edit.html" class="btn btn-sm btn-outline-warning" title="Düzenle">
+                            <i class="bi bi-pencil"></i>
+                          </a>
+                          <button class="btn btn-sm btn-outline-danger" title="Sil">
+                            <i class="bi bi-trash"></i>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><span class="text-muted">#004</span></td>
+                      <td>
+                        <div class="d-flex align-items-center">
+                          <div class="animal-avatar bg-primary-soft">
+                            <i class="bi bi-heart-fill text-primary"></i>
+                          </div>
+                          <strong>Charlie</strong>
+                        </div>
+                      </td>
+                      <td>Fatma Öztürk</td>
+                      <td><span class="badge bg-primary">Köpek</span></td>
+                      <td>Beagle</td>
+                      <td>4 yaş</td>
+                      <td>12 kg</td>
+                      <td>18.04.2023</td>
+                      <td>
+                        <div class="btn-group" role="group">
+                          <a href="animal-details.html" class="btn btn-sm btn-outline-primary" title="Detaylar">
+                            <i class="bi bi-eye"></i>
+                          </a>
+                          <a href="animal-edit.html" class="btn btn-sm btn-outline-warning" title="Düzenle">
+                            <i class="bi bi-pencil"></i>
+                          </a>
+                          <button class="btn btn-sm btn-outline-danger" title="Sil">
+                            <i class="bi bi-trash"></i>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><span class="text-muted">#005</span></td>
+                      <td>
+                        <div class="d-flex align-items-center">
+                          <div class="animal-avatar bg-warning-soft">
+                            <i class="bi bi-heart-fill text-warning"></i>
+                          </div>
+                          <strong>Pamuk</strong>
+                        </div>
+                      </td>
+                      <td>Ahmet Şahin</td>
+                      <td><span class="badge bg-warning">Kedi</span></td>
+                      <td>British Shorthair</td>
+                      <td>6 yaş</td>
+                      <td>5.2 kg</td>
+                      <td>05.05.2023</td>
+                      <td>
+                        <div class="btn-group" role="group">
+                          <a href="animal-details.html" class="btn btn-sm btn-outline-primary" title="Detaylar">
+                            <i class="bi bi-eye"></i>
+                          </a>
+                          <a href="animal-edit.html" class="btn btn-sm btn-outline-warning" title="Düzenle">
+                            <i class="bi bi-pencil"></i>
+                          </a>
+                          <button class="btn btn-sm btn-outline-danger" title="Sil">
+                            <i class="bi bi-trash"></i>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><span class="text-muted">#006</span></td>
+                      <td>
+                        <div class="d-flex align-items-center">
+                          <div class="animal-avatar bg-primary-soft">
+                            <i class="bi bi-heart-fill text-primary"></i>
+                          </div>
+                          <strong>Rocky</strong>
+                        </div>
+                      </td>
+                      <td>Elif Yıldız</td>
+                      <td><span class="badge bg-primary">Köpek</span></td>
+                      <td>German Shepherd</td>
+                      <td>7 yaş</td>
+                      <td>38 kg</td>
+                      <td>22.06.2023</td>
+                      <td>
+                        <div class="btn-group" role="group">
+                          <a href="animal-details.html" class="btn btn-sm btn-outline-primary" title="Detaylar">
+                            <i class="bi bi-eye"></i>
+                          </a>
+                          <a href="animal-edit.html" class="btn btn-sm btn-outline-warning" title="Düzenle">
+                            <i class="bi bi-pencil"></i>
+                          </a>
+                          <button class="btn btn-sm btn-outline-danger" title="Sil">
+                            <i class="bi bi-trash"></i>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><span class="text-muted">#007</span></td>
+                      <td>
+                        <div class="d-flex align-items-center">
+                          <div class="animal-avatar bg-warning-soft">
+                            <i class="bi bi-heart-fill text-warning"></i>
+                          </div>
+                          <strong>Bella</strong>
+                        </div>
+                      </td>
+                      <td>Can Arslan</td>
+                      <td><span class="badge bg-warning">Kedi</span></td>
+                      <td>Siyam</td>
+                      <td>1 yaş</td>
+                      <td>3.2 kg</td>
+                      <td>14.07.2023</td>
+                      <td>
+                        <div class="btn-group" role="group">
+                          <a href="animal-details.html" class="btn btn-sm btn-outline-primary" title="Detaylar">
+                            <i class="bi bi-eye"></i>
+                          </a>
+                          <a href="animal-edit.html" class="btn btn-sm btn-outline-warning" title="Düzenle">
+                            <i class="bi bi-pencil"></i>
+                          </a>
+                          <button class="btn btn-sm btn-outline-danger" title="Sil">
+                            <i class="bi bi-trash"></i>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><span class="text-muted">#008</span></td>
+                      <td>
+                        <div class="d-flex align-items-center">
+                          <div class="animal-avatar bg-primary-soft">
+                            <i class="bi bi-heart-fill text-primary"></i>
+                          </div>
+                          <strong>Bruno</strong>
+                        </div>
+                      </td>
+                      <td>Selin Koç</td>
+                      <td><span class="badge bg-primary">Köpek</span></td>
+                      <td>Labrador</td>
+                      <td>3 yaş</td>
+                      <td>28 kg</td>
+                      <td>30.08.2023</td>
+                      <td>
+                        <div class="btn-group" role="group">
+                          <a href="animal-details.html" class="btn btn-sm btn-outline-primary" title="Detaylar">
+                            <i class="bi bi-eye"></i>
+                          </a>
+                          <a href="animal-edit.html" class="btn btn-sm btn-outline-warning" title="Düzenle">
+                            <i class="bi bi-pencil"></i>
+                          </a>
+                          <button class="btn btn-sm btn-outline-danger" title="Sil">
+                            <i class="bi bi-trash"></i>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="card-footer bg-white">
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="text-muted">
+                  Toplam <strong>127</strong> hayvan kayıtlı - Sayfa <strong>1</strong> / <strong>16</strong>
+                </div>
+                <nav>
+                  <ul class="pagination pagination-sm mb-0">
+                    <li class="page-item disabled">
+                      <a class="page-link" href="#"><i class="bi bi-chevron-left"></i></a>
+                    </li>
+                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link" href="#">...</a></li>
+                    <li class="page-item"><a class="page-link" href="#">16</a></li>
+                    <li class="page-item">
+                      <a class="page-link" href="#"><i class="bi bi-chevron-right"></i></a>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

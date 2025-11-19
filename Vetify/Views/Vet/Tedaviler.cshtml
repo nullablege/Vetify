@@ -1,0 +1,277 @@
+﻿@using EL.Entities
+@model List<Tedavi>
+
+@{
+    ViewData["Title"] = "Tedaviler";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<main class="container-fluid px-4 py-4">
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <h1 class="page-title mb-2">Tedavi Yönetimi</h1>
+            <p class="text-muted">Tüm tedavileri görüntüleyin ve yönetin</p>
+        </div>
+        <div class="col-md-6 text-md-end">
+            <button class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#addTreatmentModal">
+                <i class="bi bi-plus-circle me-2"></i>Yeni Tedavi Ekle
+            </button>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card custom-card">
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <div class="input-group">
+                                <span class="input-group-text bg-white"><i class="bi bi-search"></i></span>
+                                <input type="text" class="form-control" id="searchInput" placeholder="Hayvan, tedavi türü veya randevu ara...">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-select" id="treatmentTypeFilter">
+                                <option value="">Tüm Tedavi Türleri</option>
+                                <option value="Aşılama">Aşılama</option>
+                                <option value="Ameliyat">Ameliyat</option>
+                                <option value="Kontrol">Kontrol</option>
+                                <option value="Diş Tedavisi">Diş Tedavisi</option>
+                                <option value="İlaç Tedavisi">İlaç Tedavisi</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <input type="date" class="form-control" id="dateFilter">
+                        </div>
+                        <div class="col-md-3 text-md-end">
+                            <button class="btn btn-outline-secondary" id="resetFilters">
+                                <i class="bi bi-arrow-clockwise me-1"></i>Filtreleri Temizle
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card custom-card">
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0">
+                            <thead>
+                                <tr>
+                                    <th style="width: 50px;">#</th>
+                                    <th>Hayvan</th>
+                                    <th>Sahip</th>
+                                    <th>Tedavi Türü</th>
+                                    <th>Tarih</th>
+                                    <th>Ücret</th>
+                                    <th style="width: 150px;">İşlemler</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach(var x in Model)
+                                {
+                                    <tr>
+                                        <td>#@x.Id</td>
+                                        <td><strong>@x.Randevu.Hayvan.Ad</strong></td>
+                                        <td>Ali Yılmaz</td>
+                                        <td><span class="badge bg-info">@x.TedaviTuru</span></td>
+                                        <td>@x.TedaviTarihi.ToString("D")</td>
+                                        <td><strong class="text-success">₺@x.Ucret</strong></td>
+                                        <td>
+                                            <div class="btn-group" role="group">
+                                                <button class="btn btn-sm btn-outline-primary btn-view"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#viewTreatmentModal"
+                                                        data-animal="@x.Randevu?.Hayvan?.Ad"
+                                                        data-owner="@x.Randevu?.Musteri?.AdSoyad "
+                                                        data-type="@x.TedaviTuru"
+                                                        data-date="@x.TedaviTarihi.ToString("D")"
+                                                        data-cost="@x.Ucret"
+                                                        data-notes="@x.Aciklama">
+                                                    <i class="bi bi-eye"></i>
+                                                </button>
+                                                <button type="button"
+                                                        class="btn btn-sm btn-outline-warning btn-edit"
+                                                        data-id="@x.Id"
+                                                        data-url="@Url.Action("GetTedavi", "Vet")">
+                                                    <i class="bi bi-pencil"></i>
+                                                </button>
+                                                <a href="~/Vet/TedaviSil/@x.Id" class="btn btn-sm btn-outline-danger">
+                                                    <i class="bi bi-trash"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</main>
+
+
+
+<div class="modal fade" id="viewTreatmentModal" tabindex="-1" aria-labelledby="viewTreatmentModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="viewTreatmentModalLabel">Tedavi Detayları</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Kapat"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <h6 class="mb-1">Hayvan Bilgileri</h6>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <small class="text-muted d-block">Hayvan</small>
+                            <span id="viewAnimalName" class="fw-semibold">-</span>
+                        </div>
+                        <div class="col-md-6">
+                            <small class="text-muted d-block">Sahip</small>
+                            <span id="viewOwnerName" class="fw-semibold">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <hr />
+
+                <div class="mb-3">
+                    <h6 class="mb-1">Tedavi Bilgileri</h6>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <small class="text-muted d-block">Tedavi Türü</small>
+                            <span id="viewTreatmentType" class="badge bg-info">-</span>
+                        </div>
+                        <div class="col-md-4">
+                            <small class="text-muted d-block">Tarih</small>
+                            <span id="viewTreatmentDate">-</span>
+                        </div>
+                        <div class="col-md-4">
+                            <small class="text-muted d-block">Ücret</small>
+                            <span id="viewTreatmentCost" class="text-success fw-semibold">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <h6 class="mb-1">Tedavi Detayları</h6>
+                    <p id="viewTreatmentNotes" class="mb-0 text-muted">
+                        -
+                    </p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Kapat</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="modal fade" id="editTreatmentModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Tedavi Düzenle</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form asp-action="EditTedavi" asp-controller="Vet" method="post" id="editTreatmentForm">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" id="editId" name="Id" />
+
+                    <div class="mb-3">
+                        <label for="editTreatmentType" class="form-label">Tedavi Türü</label>
+                        <select class="form-select" id="editTreatmentType" name="TedaviTuru">
+                            <option value="Karma Aşı">Karma Aşı</option>
+                            <option value="Aşılama">Aşılama</option>
+                            <option value="Ameliyat">Ameliyat</option>
+                            <option value="Kontrol">Kontrol</option>
+                            <option value="Diş Tedavisi">Diş Tedavisi</option>
+                            <option value="İlaç Tedavisi">İlaç Tedavisi</option>
+                            <option value="Acil Müdahale">Acil Müdahale</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="editTreatmentCost" class="form-label">Ücret (₺)</label>
+                        <input type="number" class="form-control" id="editTreatmentCost" name="Ucret" min="0" step="0.01" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="editTreatmentNotes" class="form-label">Tedavi Detayları</label>
+                        <textarea class="form-control"
+                                  id="editTreatmentNotes"
+                                  name="Aciklama"
+                                  rows="4"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">İptal</button>
+                        <button type="submit" class="btn btn-primary">Tedaviyi Kaydet</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="modal fade" id="addTreatmentModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Yeni Tedavi Ekle</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="addTreatmentForm" asp-action="TedaviEkle" asp-controller="Vet" method="post">
+                    <div class="mb-3">
+                        <label for="appointmentSelect" class="form-label">Randevu Seçin <span class="text-danger">*</span></label>
+                        <select class="form-select" name="RandevuId" asp-items="ViewBag.randevular" id="appointmentSelect" required>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="treatmentType" class="form-label">Tedavi Türü <span class="text-danger">*</span></label>
+                        <select class="form-select" name="TedaviTuru" id="treatmentType" required>
+                            <option value="">Seçiniz...</option>
+                            <option value="Aşılama">Aşılama</option>
+                            <option value="Ameliyat">Ameliyat</option>
+                            <option value="Kontrol">Kontrol</option>
+                            <option value="Diş Tedavisi">Diş Tedavisi</option>
+                            <option value="İlaç Tedavisi">İlaç Tedavisi</option>
+                            <option value="Acil Müdahale">Acil Müdahale</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="treatmentCost" class="form-label">Ücret (₺) <span class="text-danger">*</span></label>
+                        <input type="number" class="form-control" name="Ucret" id="treatmentCost" placeholder="0" min="0" step="0.01" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="treatmentNotes" class="form-label">Tedavi Detayları</label>
+                        <textarea class="form-control" name="Aciklama" id="treatmentNotes" rows="4" placeholder="Uygulanan tedavi detayları, kullanılan ilaçlar, dozajlar vb..."></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">İptal</button>
+                        <button type="submit" class="btn btn-primary">Tedaviyi Kaydet</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

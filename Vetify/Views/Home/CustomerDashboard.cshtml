@@ -1,0 +1,235 @@
+﻿
+@{
+    ViewData["Title"] = "CustomerDashboard";
+    Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+}
+
+<main class="container-fluid px-4 py-4">
+    <!-- Page Header -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <h1 class="page-title mb-3">Dashboard</h1>
+            <p class="text-muted">Hoş geldiniz, Ahmet Yılmaz</p>
+        </div>
+    </div>
+
+    <!-- Stat Cards - First Row -->
+    <div class="row g-4 mb-4">
+        <!-- Toplam Hayvan -->
+        <div class="col-xl-3 col-md-6">
+            <div class="stat-card">
+                <div class="stat-icon bg-primary-soft">
+                    <i class="bi bi-heart-pulse text-primary"></i>
+                </div>
+                <div class="stat-content">
+                    <h3 class="stat-value">2</h3>
+                    <p class="stat-label">Toplam Hayvan</p>
+                    <span class="stat-change">Max ve Luna</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Planlanmış Randevular -->
+        <div class="col-xl-3 col-md-6">
+            <div class="stat-card">
+                <div class="stat-icon bg-success-soft">
+                    <i class="bi bi-calendar-check text-success"></i>
+                </div>
+                <div class="stat-content">
+                    <h3 class="stat-value">1</h3>
+                    <p class="stat-label">Planlanmış Randevu</p>
+                    <span class="stat-change">15 Kasım 2025</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Son 30 Gün Tedavi/Ödeme -->
+        <div class="col-xl-3 col-md-6">
+            <div class="stat-card">
+                <div class="stat-icon bg-warning-soft">
+                    <i class="bi bi-bandaid text-warning"></i>
+                </div>
+                <div class="stat-content">
+                    <h3 class="stat-value">₺1,200</h3>
+                    <p class="stat-label">Son 30 Gün</p>
+                    <span class="stat-change">3 tedavi, 2 ödeme</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hava Durumu - Klinik -->
+        <div class="col-xl-3 col-md-6">
+            <div class="stat-card">
+                <div class="stat-icon bg-info-soft">
+                    <i class="bi bi-cloud-sun text-info"></i>
+                </div>
+                <div class="stat-content">
+                    <h3 class="stat-value">22°C</h3>
+                    <p class="stat-label">Klinik Hava Durumu</p>
+                    <span class="stat-change">İstanbul, Parçalı Bulutlu</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stat Cards - Second Row -->
+    <div class="row g-4 mb-4">
+        <!-- Güncel Borç -->
+        <div class="col-xl-3 col-md-6">
+            <div class="stat-card">
+                <div class="stat-icon bg-success-soft">
+                    <i class="bi bi-check-circle text-success"></i>
+                </div>
+                <div class="stat-content">
+                    <h3 class="stat-value">₺0</h3>
+                    <p class="stat-label">Güncel Borç</p>
+                    <span class="stat-change text-success">Borcunuz bulunmuyor</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- USD Kuru -->
+        <div class="col-xl-3 col-md-6">
+            <div class="stat-card">
+                <div class="stat-icon bg-warning-soft">
+                    <i class="bi bi-currency-exchange text-warning"></i>
+                </div>
+                <div class="stat-content">
+                    <h3 class="stat-value">₺34.25</h3>
+                    <p class="stat-label">USD Kuru</p>
+                    <span class="stat-change">Güncel</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- EUR Kuru -->
+        <div class="col-xl-3 col-md-6">
+            <div class="stat-card">
+                <div class="stat-icon bg-warning-soft">
+                    <i class="bi bi-currency-euro text-warning"></i>
+                </div>
+                <div class="stat-content">
+                    <h3 class="stat-value">₺37.80</h3>
+                    <p class="stat-label">EUR Kuru</p>
+                    <span class="stat-change">Güncel</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hava Durumu - Kullanıcı -->
+        <div class="col-xl-3 col-md-6">
+            <div class="stat-card">
+                <div class="stat-icon bg-info-soft">
+                    <i class="bi bi-geo-alt text-info"></i>
+                </div>
+                <div class="stat-content">
+                    <h3 class="stat-value">20°C</h3>
+                    <p class="stat-label">Konumunuz</p>
+                    <span class="stat-change">Kadıköy, Açık</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mesafe Bilgisi -->
+    <div class="row g-4 mb-4">
+        <div class="col-12">
+            <div class="card custom-card" style="background: linear-gradient(135deg, var(--primary-soft) 0%, var(--info-soft) 100%);">
+                <div class="card-body py-3">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div class="d-flex align-items-center gap-3">
+                            <i class="bi bi-pin-map-fill text-primary" style="font-size: 1.5rem;"></i>
+                            <div>
+                                <p class="mb-0 fw-semibold text-primary">Kliniğe Mesafe</p>
+                                <p class="mb-0 text-muted small">Konumunuzdan Vetify Kliniği'ne</p>
+                            </div>
+                        </div>
+                        <div class="text-end">
+                            <h4 class="mb-0 fw-bold text-primary">3.2 km</h4>
+                            <p class="mb-0 text-muted small">Yaklaşık 12 dakika</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Son Aktiviteler ve Hızlı İşlemler -->
+    <div class="row g-4">
+        <!-- Son Randevular -->
+        <div class="col-xl-8">
+            <div class="card custom-card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="card-title mb-0">Son Randevular</h5>
+                    <a href="~/Customer/Randevularim" class="btn btn-sm btn-outline-primary">Tümünü Gör</a>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Tarih</th>
+                                    <th>Saat</th>
+                                    <th>Hayvan</th>
+                                    <th>Durum</th>
+                                    <th>Notlar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>15 Kasım 2025</td>
+                                    <td><span class="badge bg-light text-dark">10:00</span></td>
+                                    <td><strong>Max</strong></td>
+                                    <td><span class="badge bg-secondary">Planlandı</span></td>
+                                    <td>Aşı kontrolü</td>
+                                </tr>
+                                <tr>
+                                    <td>10 Kasım 2025</td>
+                                    <td><span class="badge bg-light text-dark">14:00</span></td>
+                                    <td><strong>Luna</strong></td>
+                                    <td><span class="badge bg-success">Tamamlandı</span></td>
+                                    <td>Rutin kontrol</td>
+                                </tr>
+                                <tr>
+                                    <td>5 Kasım 2025</td>
+                                    <td><span class="badge bg-light text-dark">11:30</span></td>
+                                    <td><strong>Max</strong></td>
+                                    <td><span class="badge bg-success">Tamamlandı</span></td>
+                                    <td>Diş temizliği</td>
+                                </tr>
+                                <tr>
+                                    <td>28 Ekim 2025</td>
+                                    <td><span class="badge bg-light text-dark">15:00</span></td>
+                                    <td><strong>Luna</strong></td>
+                                    <td><span class="badge bg-success">Tamamlandı</span></td>
+                                    <td>Aşı uygulaması</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hızlı İşlemler -->
+        <div class="col-xl-4">
+            <div class="card custom-card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Hızlı İşlemler</h5>
+                </div>
+                <div class="card-body">
+                    <div class="d-grid gap-3">
+                        <a href="~/Customer/HayvanEkle" class="btn btn-primary btn-lg">
+                            <i class="bi bi-plus-circle me-2"></i>Yeni Hayvan Ekle
+                        </a>
+                        <a href="~/Customer/RandevuAl" class="btn btn-success btn-lg">
+                            <i class="bi bi-calendar-plus me-2"></i>Randevu Al
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+

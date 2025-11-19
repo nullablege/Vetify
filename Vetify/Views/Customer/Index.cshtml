@@ -1,0 +1,241 @@
+﻿@using Vetify.Models.ViewModel
+@model CustomerDashboardViewModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+}
+
+<main class="container-fluid px-4 py-4">
+    <!-- Page Header -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <h1 class="page-title mb-3">Dashboard</h1>
+            <p class="text-muted">Hoş geldiniz, @User.FindFirst("AdSoyad")?.Value </p>
+        </div>
+    </div>
+
+    <!-- Stat Cards - First Row -->
+    <div class="row g-4 mb-4">
+        <!-- Toplam Hayvan -->
+        <div class="col-xl-3 col-md-6">
+            <div class="stat-card">
+                <div class="stat-icon bg-primary-soft">
+                    <i class="bi bi-heart-pulse text-primary"></i>
+                </div>
+                <div class="stat-content">
+                    <h3 class="stat-value">@Model.ToplamHayvan</h3>
+                    <p class="stat-label">Toplam Hayvan</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Planlanmış Randevular -->
+        <div class="col-xl-3 col-md-6">
+            <div class="stat-card">
+                <div class="stat-icon bg-success-soft">
+                    <i class="bi bi-calendar-check text-success"></i>
+                </div>
+                <div class="stat-content">
+                    <h3 class="stat-value">@Model.planlanmisRandevu</h3>
+                    <p class="stat-label">Planlanmış Randevu</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Son 30 Gün Tedavi/Ödeme -->
+        <div class="col-xl-3 col-md-6">
+            <div class="stat-card">
+                <div class="stat-icon bg-warning-soft">
+                    <i class="bi bi-bandaid text-warning"></i>
+                </div>
+                <div class="stat-content">
+                    <h3 class="stat-value">₺@Model.son30OdemeTutar</h3>
+                    <p class="stat-label">Son 30 Gün</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hava Durumu - Klinik -->
+        <div class="col-xl-3 col-md-6">
+            <div class="stat-card">
+                <div class="stat-icon bg-info-soft">
+                    <i class="bi bi-cloud-sun text-info"></i>
+                </div>
+                <div class="stat-content">
+                    <h3 class="stat-value" id="klinikSicaklik">22°C</h3>
+                    <p class="stat-label">Klinik Hava Durumu</p>
+                    <span class="stat-change" id="klinikHavaDurum">İstanbul, Parçalı Bulutlu</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stat Cards - Second Row -->
+    <div class="row g-4 mb-4">
+        <!-- Güncel Borç -->
+        <div class="col-xl-3 col-md-6">
+            <div class="stat-card">
+                <div class="stat-icon bg-success-soft">
+                    <i class="bi bi-check-circle text-success"></i>
+                </div>
+                <div class="stat-content">
+                    <h3 class="stat-value">₺@Model.guncelBorc</h3>
+                    <p class="stat-label">Güncel Borç</p>
+                    @if(Model.guncelBorc == 0)
+                    {
+                        <span class="stat-change text-success">Borcunuz bulunmuyor</span>
+                    }
+                    else
+                    {
+                        <span class="stat-change text-danger">Borcunuz bulunuyor</span>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- USD Kuru -->
+        <div class="col-xl-3 col-md-6">
+            <div class="stat-card">
+                <div class="stat-icon bg-warning-soft">
+                    <i class="bi bi-currency-exchange text-warning"></i>
+                </div>
+                <div class="stat-content">
+                    <h3 class="stat-value" id="usd">₺34.25</h3>
+                    <p class="stat-label">USD Kuru</p>
+                    <span class="stat-change">Güncel</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- EUR Kuru -->
+        <div class="col-xl-3 col-md-6">
+            <div class="stat-card">
+                <div class="stat-icon bg-warning-soft">
+                    <i class="bi bi-currency-euro text-warning"></i>
+                </div>
+                <div class="stat-content">
+                    <h3 class="stat-value" id="eur">₺37.80</h3>
+                    <p class="stat-label">EUR Kuru</p>
+                    <span class="stat-change">Güncel</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hava Durumu - Kullanıcı -->
+        <div class="col-xl-3 col-md-6">
+            <div class="stat-card">
+                <div class="stat-icon bg-info-soft">
+                    <i class="bi bi-geo-alt text-info"></i>
+                </div>
+                <div class="stat-content">
+                    <h3 class="stat-value" id="konumSicaklik" >20°C</h3>
+                    <p class="stat-label" >Konumunuz</p>
+                    <span class="stat-change" id="konumHavaDurumu">Kadıköy, Açık</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mesafe Bilgisi -->
+    <div class="row g-4 mb-4">
+        <div class="col-12">
+            <div class="card custom-card" style="background: linear-gradient(135deg, var(--primary-soft) 0%, var(--info-soft) 100%);">
+                <div class="card-body py-3">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div class="d-flex align-items-center gap-3">
+                            <i class="bi bi-pin-map-fill text-primary" style="font-size: 1.5rem;"></i>
+                            <div>
+                                <p class="mb-0 fw-semibold text-primary">Kliniğe Mesafe</p>
+                                <p class="mb-0 text-muted small">Konumunuzdan Vetify Kliniği'ne</p>
+                            </div>
+                        </div>
+                        <div class="text-end">
+                            <h4 class="mb-0 fw-bold text-primary" id="uzaklikKm">3.2 km</h4>
+                            <p class="mb-0 text-muted small" id="uzaklikSure">Yaklaşık 12 dakika</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Son Aktiviteler ve Hızlı İşlemler -->
+    <div class="row g-4">
+        <!-- Son Randevular -->
+        <div class="col-xl-8">
+            <div class="card custom-card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="card-title mb-0">Son Randevular</h5>
+                    <a href="~/Customer/Randevularim" class="btn btn-sm btn-outline-primary">Tümünü Gör</a>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Tarih</th>
+                                    <th>Saat</th>
+                                    <th>Hayvan</th>
+                                    <th>Durum</th>
+                                    <th>Notlar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach(var x in Model.sonRandevular)
+                                {
+                                    <tr>
+                                        <td>@x.RandevuZamani.ToString("dd MMM yyyy")</td>
+                                        <td><span class="badge bg-light text-dark">@x.RandevuZamani.ToString("HH:mm")</span></td>
+                                        <td><strong>@x.Hayvan.Ad</strong></td>
+                                        @if(x.Durum == EL.Enums.RandevuDurum.Tamamlandi)
+                                        {
+                                            <td><span class="badge bg-success">@x.Durum</span></td>
+                                        }
+                                        else if(x.Durum == EL.Enums.RandevuDurum.Onaylandi)
+                                        {
+                                            <td><span class="badge bg-info">@x.Durum</span></td>
+                                        }
+                                        else if(x.Durum == EL.Enums.RandevuDurum.IptalEdildi)
+                                        {
+                                            <td><span class="badge bg-danger">@x.Durum</span></td>
+                                        }
+                                        else
+                                        {
+                                            <td><span class="badge bg-secondary">@x.Durum</span></td>
+                                        }
+                                        <td>@x.Notlar</td>
+                                    </tr>
+                                }
+
+
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hızlı İşlemler -->
+        <div class="col-xl-4">
+            <div class="card custom-card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Hızlı İşlemler</h5>
+                </div>
+                <div class="card-body">
+                    <div class="d-grid gap-3">
+                        <a href="~/Customer/HayvanEkle" class="btn btn-primary btn-lg">
+                            <i class="bi bi-plus-circle me-2"></i>Yeni Hayvan Ekle
+                        </a>
+                        <a href="~/Customer/RandevuAl" class="btn btn-success btn-lg">
+                            <i class="bi bi-calendar-plus me-2"></i>Randevu Al
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+

@@ -1,0 +1,141 @@
+﻿@using EL.Entities
+@model Randevu
+
+@{
+    ViewData["Title"] = "RandevuDuzenle";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<main class="container-fluid px-4 py-4">
+    <div class="row mb-4">
+        <div class="col-12">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="~/Vet/Index">Anasayfa</a></li>
+                    <li class="breadcrumb-item"><a href="~/Vet/Randevular">Randevular</a></li>
+                    <li class="breadcrumb-item active">Yeni Randevu Oluştur</li>
+                </ol>
+            </nav>
+            <h1 class="page-title">Yeni Randevu Oluştur</h1>
+            <p class="text-muted">Bir hayvan için yeni randevu kaydı oluşturun</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="card custom-card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Randevu Bilgileri</h5>
+                </div>
+                <div class="card-body">
+                    <form id="appointmentForm" asp-action="RandevuDuzenle" asp-controller="Vet" method="POST">
+
+
+                        <div class="mb-4">
+                            <label for="animalSelect" class="form-label">Müşteri Seçin <span class="text-danger">*</span></label>
+                            <select class="form-select form-select-lg" asp-for="MusteriId" asp-items="ViewBag.Musteriler" id="musteriSelect" required>
+                            </select>
+                            <div class="form-text">
+                                <i class="bi bi-info-circle me-1"></i>
+                                Listede hayvanı müşteriyi bulamıyorsanız önce sisteme kaydolmasını sağlayın.
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="animalSelect" class="form-label">Hayvan Seçin <span class="text-danger">*</span></label>
+                            <select class="form-select form-select-lg" asp-for="HayvanId" asp-items="ViewBag.Hayvanlar" id="animalSelect" required>
+                            </select>
+                            <div class="form-text">
+                                <i class="bi bi-info-circle me-1"></i>
+                                Listede hayvanı bulamıyorsanız, önce <a href="~/Vet/HayvanEkle">yeni hayvan kaydı</a> oluşturun
+                            </div>
+                        </div>
+
+
+
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="appointmentDate" class="form-label">Randevu Tarihi <span class="text-danger">*</span></label>
+                                <input type="date" asp-for="Tarih" class="form-control" id="appointmentDate" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="appointmentTime" class="form-label">Randevu Saati <span class="text-danger">*</span></label>
+                                <select class="form-select" asp-for="Saat" id="appointmentTime" required>
+                                    <option value="">Saat seçiniz...</option>
+                                    <option value="09:00">09:00</option>
+                                    <option value="09:30">09:30</option>
+                                    <option value="10:00">10:00</option>
+                                    <option value="10:30">10:30</option>
+                                    <option value="11:00">11:00</option>
+                                    <option value="11:30">11:30</option>
+                                    <option value="12:00">12:00</option>
+                                    <option value="14:00">14:00</option>
+                                    <option value="14:30">14:30</option>
+                                    <option value="15:00">15:00</option>
+                                    <option value="15:30">15:30</option>
+                                    <option value="16:00">16:00</option>
+                                    <option value="16:30">16:30</option>
+                                    <option value="17:00">17:00</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="appointmentType" class="form-label">Randevu Durumu</label>
+                            <select class="form-select" asp-for="Durum" id="appointmentType">
+                                <option value="">Seçiniz...</option>
+                                <option value="@EL.Enums.RandevuDurum.Planlandi" selected>Planlandı</option>
+                                <option value="@EL.Enums.RandevuDurum.Onaylandi">Onaylandi</option>
+                                <option value="@EL.Enums.RandevuDurum.Tamamlandi">Tamamlandi</option>
+                                <option value="@EL.Enums.RandevuDurum.IptalEdildi">IptalEdildi</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="notes" class="form-label">Notlar</label>
+                            <textarea class="form-control" asp-for="Notlar" id="notes" rows="4" placeholder="Randevu ile ilgili özel notlar, şikayetler veya dikkat edilmesi gereken durumlar..."></textarea>
+                        </div>
+
+                        <div class="alert alert-info d-flex align-items-start">
+                            <i class="bi bi-info-circle-fill me-2 mt-1"></i>
+                            <div>
+                                <strong>Önemli Bilgiler:</strong>
+                                <ul class="mb-0 mt-1">
+                                    <li>Randevu oluşturmadan önce seçilen tarih ve saatte başka randevu olmadığından emin olun</li>
+                                    <li>Geçmiş tarihler için randevu oluşturmayın</li>
+                                    <li>Randevu sahibine SMS veya e-posta ile bildirim gönderilecektir ( Yakında... )</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="card bg-light border-0 mb-4" id="conflictWarning" style="display: none;">
+                            <div class="card-body">
+                                <div class="d-flex align-items-start text-warning">
+                                    <i class="bi bi-exclamation-triangle-fill me-2 mt-1"></i>
+                                    <div>
+                                        <strong>Dikkat!</strong>
+                                        <p class="mb-0">Seçilen tarih ve saatte başka bir randevu bulunmaktadır. Lütfen farklı bir saat seçin.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex gap-2 justify-content-end">
+                            <a href="~/Vet/Randevular" class="btn btn-outline-secondary">
+                                <i class="bi bi-x-circle me-1"></i>İptal
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-check-circle me-1"></i>Randevu Oluştur
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+
+

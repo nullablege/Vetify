@@ -1,0 +1,130 @@
+﻿@using EL.Entities
+@model Randevu
+
+@{
+    ViewData["Title"] = "RandevuAl";
+    Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+}
+
+<main class="container-fluid px-4 py-4">
+    <!-- Page Header -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <h1 class="page-title mb-2">Yeni Randevu Al</h1>
+            <p class="text-muted">Hayvanınız için randevu oluşturun</p>
+        </div>
+        <div class="col-md-6 text-md-end">
+            <a href="~/Customer/Randevularim" class="btn btn-outline-secondary btn-lg">
+                <i class="bi bi-arrow-left me-2"></i>Geri Dön
+            </a>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <!-- Success Message (Hidden by default) -->
+            <div class="alert alert-success alert-dismissible fade" role="alert" id="successMessage"
+                 style="display: none;">
+                <i class="bi bi-check-circle me-2"></i>
+                <strong>Başarılı!</strong> Randevunuz başarıyla oluşturuldu.
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+
+            <!-- Conflict Warning (Hidden by default) -->
+            <div class="alert alert-warning alert-dismissible fade" role="alert" id="conflictWarning"
+                 style="display: none;">
+                <i class="bi bi-exclamation-triangle me-2"></i>
+                <strong>Uyarı!</strong> Bu tarih ve saatte başka bir randevu bulunmaktadır. Lütfen farklı bir zaman
+                seçin.
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+
+            <!-- Appointment Create Form -->
+            <div class="card custom-card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">
+                        <i class="bi bi-calendar-check-fill me-2 text-primary"></i>Randevu Bilgileri
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <form asp-controller="Customer" asp-action="RandevuAl" method="post">
+                        <div class="row g-3">
+                            <!-- Animal Selection -->
+                            <div class="col-12">
+                                <label asp-for="HayvanId" class="form-label">
+                                    Hayvan Seçin <span class="text-danger">*</span>
+                                </label>
+                                <select asp-for="HayvanId" asp-items="@ViewBag.itemler" class="form-select form-select-lg" required>
+                                </select>
+                                <span asp-validation-for="HayvanId" class="text-danger"></span>
+                            </div>
+
+                            <!-- Appointment Date -->
+                            <div class="col-md-6">
+                                <label asp-for="Tarih" class="form-label">
+                                    Randevu Tarihi <span class="text-danger">*</span>
+                                </label>
+                                <input asp-for="Tarih" type="date" class="form-control form-control-lg"
+                                       required>
+                                <span asp-validation-for="Tarih" class="text-danger"></span>
+                            </div>
+
+                            <!-- Appointment Time -->
+                            <div class="col-md-6">
+                                <label asp-for="Saat" class="form-label">
+                                    Randevu Saati <span class="text-danger">*</span>
+                                </label>
+                                <input asp-for="Saat" type="time" class="form-control form-control-lg"
+                                       required>
+                                <span asp-validation-for="Saat" class="text-danger"></span>
+                            </div>
+
+                            <!-- Notes (Optional) -->
+                            <div class="col-12">
+                                <label asp-for="Notlar" class="form-label">
+                                    Notlar <span class="text-muted">(Opsiyonel)</span>
+                                </label>
+                                <textarea asp-for="Notlar" class="form-control" rows="3"
+                                          placeholder="Randevu ile ilgili notlarınız (örn: aşı kontrolü, rutin muayene)..."></textarea>
+                                <span asp-validation-for="Notlar" class="text-danger"></span>
+                                <small class="form-text text-muted">
+                                    Randevu sebebini veya özel durumları belirtebilirsiniz.
+                                </small>
+                            </div>
+                        </div>
+
+                        <!-- Form Actions -->
+                        <div class="d-flex gap-2 mt-4">
+                            <button type="submit" class="btn btn-primary btn-lg flex-grow-1">
+                                <i class="bi bi-calendar-check me-2"></i>Randevu Oluştur
+                            </button>
+                            <a href="~/Customer/Randevularim" class="btn btn-outline-secondary btn-lg">
+                                <i class="bi bi-x-circle me-2"></i>İptal
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Info Card -->
+            <div class="card custom-card mt-4 border-info">
+                <div class="card-body">
+                    <div class="d-flex">
+                        <div class="me-3">
+                            <i class="bi bi-info-circle text-info" style="font-size: 1.5rem;"></i>
+                        </div>
+                        <div>
+                            <h6 class="mb-2">Randevu Bilgilendirmesi</h6>
+                            <ul class="text-muted mb-0 small">
+                                <li>Randevunuz oluşturulduktan sonra onay bekleyecektir.</li>
+                                <li>Klinik çalışma saatleri: Pazartesi-Cumartesi 09:00-18:00</li>
+                                <li>Acil durumlar için lütfen kliniği arayın: 0212 XXX XX XX</li>
+                                <li>Randevunuzu en az 24 saat önceden iptal edebilirsiniz.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

@@ -1,0 +1,145 @@
+﻿@using EL.Entities
+@model List<Randevu>
+@{
+    ViewData["Title"] = "Randevular";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<main class="container-fluid px-4 py-4">
+    <!-- Page Header -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <h1 class="page-title mb-2">Randevularım</h1>
+            <p class="text-muted">Tüm randevularınızı görüntüleyin ve yönetin</p>
+        </div>
+        <div class="col-md-6 text-md-end">
+            <a href="~/Vet/RandevuOlustur" class="btn btn-primary btn-lg">
+                <i class="bi bi-calendar-plus me-2"></i> Randevu Oluştur
+            </a>
+        </div>
+    </div>
+
+    <!-- Appointments Table -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card custom-card">
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Tarih</th>
+                                    <th>Saat</th>
+                                    <th>Hayvan</th>
+                                    <th>Sahip</th>
+                                    <th>Durum</th>
+                                    <th>Notlar</th>
+                                    <th>Tedavi</th>
+                                    <th>İşlemler</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach(var x in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <i class="bi bi-calendar3 text-primary me-2"></i>
+                                                <span>@x.RandevuZamani.ToString("D")</span>
+                                            </div>
+                                        </td>
+                                        <td><span class="badge bg-light text-dark">@x.RandevuZamani.ToString("HH:mm")</span></td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="animal-avatar bg-primary-soft me-2">
+                                                    <i class="bi bi-heart-fill text-primary"></i>
+                                                </div>
+                                                <strong>@x.Hayvan.Ad</strong>
+                                            </div>
+                                        </td>
+                                        <td>@x.Musteri.AdSoyad</td>
+                                        @if (x.Durum == EL.Enums.RandevuDurum.Tamamlandi)
+                                        {
+                                            <td><span class="badge bg-success">@x.Durum</span></td>
+                                        }
+                                        else if (x.Durum == EL.Enums.RandevuDurum.Onaylandi)
+                                        {
+                                            <td><span class="badge bg-info">@x.Durum</span></td>
+                                        }
+                                        else if (x.Durum == EL.Enums.RandevuDurum.IptalEdildi)
+                                        {
+                                            <td><span class="badge bg-danger">@x.Durum</span></td>
+                                        }
+                                        else
+                                        {
+                                            <td><span class="badge bg-secondary">@x.Durum</span></td>
+                                        }
+                                        
+                                        <td>@x.Notlar</td>
+                                        <td><span class="text-muted"> 
+                                                @{
+                                                    var yapilanTedavi = @x.Tedaviler.FirstOrDefault();
+                                                }
+                                            @if (yapilanTedavi != null)
+                                            {
+                                                @yapilanTedavi.TedaviTuru <br />
+                                                @yapilanTedavi.Aciklama <br />
+                                                @($"₺{yapilanTedavi.Ucret}")
+                                             }
+                                             else
+                                             {
+                                                <span>-</span>
+                                             }
+                                        </span></td>
+                                        <td>
+                                            @if(x.Durum == EL.Enums.RandevuDurum.Planlandi)
+                                            {
+                                            <a href="~/Vet/RandevuIptal/@x.Id" class="btn btn-sm btn-outline-danger cancel-appointment-btn" data-appointment-id="@x.Id">
+                                                <i class="bi bi-x-circle"></i> İptal Et
+                                                </a>
+                                            }
+                                            else if(x.Durum == EL.Enums.RandevuDurum.IptalEdildi)
+                                            {
+                                                <span class="text-muted small">
+                                                    İptal Edildi
+                                                </span>
+                                            }
+                                            else
+                                            {
+                                            <a href="~/Vet/HayvanDetay/@x.Id" class="btn btn-sm btn-outline-primary">
+                                                 <i class="bi bi-eye"></i> Detay
+                                            </a>
+                                            }
+                                            <a href="~/Vet/RandevuDuzenle/@x.Id" class="btn btn-sm btn-outline-primary">
+                                                 <i class="bi bi-eye"></i> Düzenle
+                                            </a>
+                                        </td>
+                                    </tr>
+
+                                }
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Info Card -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="alert alert-info d-flex align-items-center" role="alert">
+                <i class="bi bi-info-circle-fill me-3" style="font-size: 1.5rem;"></i>
+                <div>
+                    <strong>Bilgi:</strong> Sadece "Planlandı" durumundaki randevuları iptal edebilirsiniz.
+                    Onaylanmış randevuları iptal etmek için lütfen kliniği arayın.
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+

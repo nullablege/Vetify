@@ -1,0 +1,148 @@
+﻿@using Vetify.Models.ViewModel
+@model VetDashboardViewModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+                                            
+
+<main class="container-fluid px-4 py-4">
+    <div class="row mb-4">
+        <div class="col-12">
+            <h1 class="page-title mb-3">Anasayfa</h1>
+            <p class="text-muted">Hoş geldiniz, @User.FindFirst("AdSoyad")?.Value</p>
+        </div>
+    </div>
+
+    <div class="row g-4 mb-4">
+        <div class="col-xl-3 col-md-6">
+            <div class="stat-card">
+                <div class="stat-icon bg-primary-soft">
+                    <i class="bi bi-heart-pulse text-primary"></i>
+                </div>
+                <div class="stat-content">
+                    <h3 class="stat-value">@Model.ToplamHayvan</h3>
+                    <p class="stat-label">Toplam Hayvan</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+            <div class="stat-card">
+                <div class="stat-icon bg-success-soft">
+                    <i class="bi bi-calendar-check text-success"></i>
+                </div>
+                <div class="stat-content">
+                    <h3 class="stat-value">@Model.BugunkuRandevu</h3>
+                    <p class="stat-label">Bugünkü Randevular</p>
+                    <span class="stat-change">@Model.BugunkuRandevuTamamlandi Tamamlandı</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+            <div class="stat-card">
+                <div class="stat-icon bg-warning-soft">
+                    <i class="bi bi-clock-history text-warning"></i>
+                </div>
+                <div class="stat-content">
+                    <h3 class="stat-value">@Model.BekleyenRandevu</h3>
+                    <p class="stat-label">Bekleyen Randevu</p>
+                    <span class="stat-change">Sonraki 7 gün</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+            <div class="stat-card">
+                <div class="stat-icon bg-info-soft">
+                    <i class="bi bi-currency-dollar text-info"></i>
+                </div>
+                <div class="stat-content">
+                    <h3 class="stat-value">₺@Model.AylıkGelir</h3>
+                    <p class="stat-label">Aylık Gelir</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-xl-8">
+            <div class="card custom-card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="card-title mb-0">Bugünkü Randevular</h5>
+                    <a href="~/Vet/Randevular" class="btn btn-sm btn-outline-primary">Tümünü Gör</a>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Saat</th>
+                                    <th>Hayvan</th>
+                                    <th>Sahip</th>
+                                    <th>Tür</th>
+                                    <th>Durum</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach(var x in Model.BugunkuRandevular)
+                                {
+                                    <tr>
+                                        <td><span class="badge bg-light text-dark">@x.RandevuZamani.ToString("HH:dd")</span></td>
+                                        <td><strong>@x.Hayvan.Ad</strong></td>
+                                        <td>@x.Musteri.AdSoyad</td>
+                                        <td><span class="badge bg-warning">@x.Hayvan.Tur</span></td>
+                                        @if (x.Durum == EL.Enums.RandevuDurum.Tamamlandi)
+                                        {
+                                            <td><span class="badge bg-success">@x.Durum</span></td>
+                                        }
+                                        else if (x.Durum == EL.Enums.RandevuDurum.Onaylandi)
+                                        {
+                                            <td><span class="badge bg-info">@x.Durum</span></td>
+                                        }
+                                        else if (x.Durum == EL.Enums.RandevuDurum.IptalEdildi)
+                                        {
+                                            <td><span class="badge bg-danger">@x.Durum</span></td>
+                                        }
+                                        else
+                                        {
+                                            <td><span class="badge bg-secondary">@x.Durum</span></td>
+                                        }
+
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-4">
+            <div class="card custom-card mb-4">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Hızlı İşlemler</h5>
+                </div>
+                <div class="card-body">
+                    <div class="d-grid gap-3">
+                        <a href="~/Vet/HayvanEkle" class="btn btn-primary btn-lg">
+                            <i class="bi bi-plus-circle me-2"></i>Yeni Hayvan Ekle
+                        </a>
+                        <a href="~/Vet/RandevuOlustur" class="btn btn-success btn-lg">
+                            <i class="bi bi-calendar-plus me-2"></i>Randevu Oluştur
+                        </a>
+                        <a href="~/Vet/TedaviEkle" class="btn btn-info btn-lg">
+                            <i class="bi bi-bandaid me-2"></i>Tedavi Ekle
+                        </a>
+                        <a href="~/Vet/Odemeler" class="btn btn-warning btn-lg">
+                            <i class="bi bi-credit-card me-2"></i>Ödeme Kaydet
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+           
+        </div>
+    </div>
+</main>

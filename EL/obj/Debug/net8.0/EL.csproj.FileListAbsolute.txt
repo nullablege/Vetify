@@ -1,0 +1,12 @@
+C:\Users\egeay\source\repos\Vetify\EL\bin\Debug\net8.0\EL.deps.json
+C:\Users\egeay\source\repos\Vetify\EL\bin\Debug\net8.0\EL.dll
+C:\Users\egeay\source\repos\Vetify\EL\bin\Debug\net8.0\EL.pdb
+C:\Users\egeay\source\repos\Vetify\EL\obj\Debug\net8.0\EL.csproj.AssemblyReference.cache
+C:\Users\egeay\source\repos\Vetify\EL\obj\Debug\net8.0\EL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\egeay\source\repos\Vetify\EL\obj\Debug\net8.0\EL.AssemblyInfoInputs.cache
+C:\Users\egeay\source\repos\Vetify\EL\obj\Debug\net8.0\EL.AssemblyInfo.cs
+C:\Users\egeay\source\repos\Vetify\EL\obj\Debug\net8.0\EL.csproj.CoreCompileInputs.cache
+C:\Users\egeay\source\repos\Vetify\EL\obj\Debug\net8.0\EL.dll
+C:\Users\egeay\source\repos\Vetify\EL\obj\Debug\net8.0\refint\EL.dll
+C:\Users\egeay\source\repos\Vetify\EL\obj\Debug\net8.0\EL.pdb
+C:\Users\egeay\source\repos\Vetify\EL\obj\Debug\net8.0\ref\EL.dll

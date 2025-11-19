@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vetify - Responsive Design Test</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .test-section {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            border: 1px solid var(--border-color);
+        }
+        .breakpoint-indicator {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 0.75rem 1.25rem;
+            background: var(--primary);
+            color: white;
+            border-radius: var(--radius);
+            font-weight: 600;
+            z-index: 9999;
+            box-shadow: var(--shadow-lg);
+        }
+        @media (max-width: 575.98px) {
+            .breakpoint-indicator::after { content: "XS (< 576px)"; }
+        }
+        @media (min-width: 576px) and (max-width: 767.98px) {
+            .breakpoint-indicator::after { content: "SM (576px - 767px)"; }
+        }
+        @media (min-width: 768px) and (max-width: 991.98px) {
+            .breakpoint-indicator::after { content: "MD (768px - 991px)"; }
+        }
+        @media (min-width: 992px) and (max-width: 1199.98px) {
+            .breakpoint-indicator::after { content: "LG (992px - 1199px)"; }
+        }
+        @media (min-width: 1200px) {
+            .breakpoint-indicator::after { content: "XL (≥ 1200px)"; }
+        }
+    </style>
+</head>
+<body>
+    <div class="breakpoint-indicator"></div>
+
+    <!-- Customer Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+        <div class="container-fluid px-4">
+            <a class="navbar-brand d-flex align-items-center" href="customer-dashboard.html">
+                <i class="bi bi-heart-pulse-fill me-2 text-primary" style="font-size: 1.5rem;"></i>
+                <span class="fw-bold text-primary">Vetify</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Hayvanlarım</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Randevularım</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-person-circle me-1"></i>
+                            <span>Test User</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="#">Profil</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item text-danger" href="#">Çıkış</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container-fluid px-4 py-4">
+        <h1 class="page-title mb-4">Responsive Design Test</h1>
+
+        <!-- Stat Cards Test -->
+        <div class="test-section">
+            <h3 class="mb-3">Stat Cards (Dashboard)</h3>
+            <div class="row g-4">
+                <div class="col-xl-3 col-md-6">
+                    <div class="stat-card">
+                        <div class="stat-icon bg-primary-soft">
+                            <i class="bi bi-heart-pulse text-primary"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 class="stat-value">2</h3>
+                            <p class="stat-label">Toplam Hayvan</p>
+                            <span class="stat-change">Max ve Luna</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6">
+                    <div class="stat-card">
+                        <div class="stat-icon bg-success-soft">
+                            <i class="bi bi-calendar-check text-success"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 class="stat-value">1</h3>
+                            <p class="stat-label">Planlanmış Randevu</p>
+                            <span class="stat-change">15 Kasım 2025</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Table Test -->
+        <div class="test-section">
+            <h3 class="mb-3">Table (Appointments)</h3>
+            <div class="card custom-card">
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Tarih</th>
+                                    <th>Saat</th>
+                                    <th>Hayvan</th>
+                                    <th>Durum</th>
+                                    <th>Notlar</th>
+                                    <th>İşlemler</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>15 Kas 2025</td>
+                                    <td><span class="badge bg-light text-dark">10:00</span></td>
+                                    <td><strong>Max</strong></td>
+                                    <td><span class="badge bg-secondary">Planlandı</span></td>
+                                    <td>Aşı kontrolü</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-outline-danger">
+                                            <i class="bi bi-x-circle"></i> İptal
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Payment Card Test -->
+        <div class="test-section">
+            <h3 class="mb-3">Payment Card</h3>
+            <div class="card custom-card">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-md-2">
+                            <div class="text-center">
+                                <div class="stat-icon bg-success-soft mx-auto mb-2">
+                                    <i class="bi bi-credit-card text-success"></i>
+                                </div>
+                                <small class="text-muted">10 Kas 2025</small>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <h6 class="mb-1">Randevu Ödemesi</h6>
+                            <p class="text-muted mb-0">Randevu: #233 - Luna</p>
+                        </div>
+                        <div class="col-md-5 text-md-end mt-3 mt-md-0">
+                            <h5 class="text-success mb-1">₺450</h5>
+                            <div class="d-flex justify-content-md-end gap-3">
+                                <small class="text-muted">$13.14 USD</small>
+                                <small class="text-muted">€11.90 EUR</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Form Test -->
+        <div class="test-section">
+            <h3 class="mb-3">Form (Profile)</h3>
+            <div class="row g-4">
+                <div class="col-lg-6">
+                    <div class="card custom-card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Test Form</h5>
+                        </div>
+                        <div class="card-body">
+                            <form>
+                                <div class="mb-3">
+                                    <label class="form-label">Ad Soyad</label>
+                                    <input type="text" class="form-control form-control-lg" value="Test User">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">E-posta</label>
+                                    <input type="email" class="form-control form-control-lg" value="test@example.com">
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-lg w-100">
+                                    <i class="bi bi-check-circle me-2"></i>Güncelle
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Responsive Breakpoints Info -->
+        <div class="test-section">
+            <h3 class="mb-3">Responsive Breakpoints</h3>
+            <div class="alert alert-info">
+                <h5>Test Instructions:</h5>
+                <ul class="mb-0">
+                    <li><strong>Mobile (320px - 767px):</strong> Stat cards stack vertically, tables scroll horizontally, navigation collapses</li>
+                    <li><strong>Tablet (768px - 991px):</strong> Stat cards in 2 columns, tables show all columns, navigation expanded</li>
+                    <li><strong>Desktop (992px+):</strong> Full layout with all features visible, optimal spacing</li>
+                </ul>
+            </div>
+            <p class="text-muted mb-0">
+                <i class="bi bi-info-circle me-2"></i>
+                Check the indicator in the bottom-right corner to see your current breakpoint.
+            </p>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

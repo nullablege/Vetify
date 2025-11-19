@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vetify - Tedaviler</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+      <div class="container-fluid px-4">
+        <a class="navbar-brand d-flex align-items-center" href="index.html">
+          <i class="bi bi-heart-pulse-fill me-2 text-primary" style="font-size: 1.5rem;"></i>
+          <span class="fw-bold text-primary">Vetify</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Dashboard</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="animals.html">Hayvanlar</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="appointments.html">Randevular</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="treatments.html">Tedaviler</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="payments.html">Ödemeler</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
+                <i class="bi bi-person-circle me-1"></i>
+                <span>Dr. Ayşe Yılmaz</span>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2"></i>Profil</a></li>
+                <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i>Ayarlar</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item text-danger" href="login.html"><i class="bi bi-box-arrow-right me-2"></i>Çıkış Yap</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <main class="container-fluid px-4 py-4">
+      <div class="row mb-4">
+        <div class="col-md-6">
+          <h1 class="page-title mb-2">Tedavi Yönetimi</h1>
+          <p class="text-muted">Tüm tedavileri görüntüleyin ve yönetin</p>
+        </div>
+        <div class="col-md-6 text-md-end">
+          <button class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#addTreatmentModal">
+            <i class="bi bi-plus-circle me-2"></i>Yeni Tedavi Ekle
+          </button>
+        </div>
+      </div>
+
+      <div class="row mb-4">
+        <div class="col-12">
+          <div class="card custom-card">
+            <div class="card-body">
+              <div class="row g-3">
+                <div class="col-md-4">
+                  <div class="input-group">
+                    <span class="input-group-text bg-white"><i class="bi bi-search"></i></span>
+                    <input type="text" class="form-control" id="searchInput" placeholder="Hayvan, tedavi türü veya randevu ara...">
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <select class="form-select" id="treatmentTypeFilter">
+                    <option value="">Tüm Tedavi Türleri</option>
+                    <option value="vaccination">Aşılama</option>
+                    <option value="surgery">Ameliyat</option>
+                    <option value="checkup">Kontrol</option>
+                    <option value="dental">Diş Tedavisi</option>
+                    <option value="medication">İlaç Tedavisi</option>
+                  </select>
+                </div>
+                <div class="col-md-2">
+                  <input type="date" class="form-control" id="dateFilter">
+                </div>
+                <div class="col-md-3 text-md-end">
+                  <button class="btn btn-outline-secondary" id="resetFilters">
+                    <i class="bi bi-arrow-clockwise me-1"></i>Filtreleri Temizle
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <div class="card custom-card">
+            <div class="card-body p-0">
+              <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                  <thead>
+                    <tr>
+                      <th style="width: 50px;">#</th>
+                      <th>Randevu</th>
+                      <th>Hayvan</th>
+                      <th>Sahip</th>
+                      <th>Tedavi Türü</th>
+                      <th>Tarih</th>
+                      <th>Ücret</th>
+                      <th style="width: 150px;">İşlemler</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><span class="text-muted">#T345</span></td>
+                      <td>#234</td>
+                      <td><strong>Luna</strong></td>
+                      <td>Ali Yılmaz</td>
+                      <td><span class="badge bg-info">Aşılama</span></td>
+                      <td>13 Kasım 2025</td>
+                      <td><strong class="text-success">₺150</strong></td>
+                      <td>
+                        <div class="btn-group" role="group">
+                          <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#viewTreatmentModal">
+                            <i class="bi bi-eye"></i>
+                          </button>
+                          <button class="btn btn-sm btn-outline-warning" data-bs-toggle="modal" data-bs-target="#editTreatmentModal">
+                            <i class="bi bi-pencil"></i>
+                          </button>
+                          <button class="btn btn-sm btn-outline-danger">
+                            <i class="bi bi-trash"></i>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><span class="text-muted">#T344</span></td>
+                      <td>#233</td>
+                      <td><strong>Minnoş</strong></td>
+                      <td>Mehmet Demir</td>
+                      <td><span class="badge bg-primary">Kontrol</span></td>
+                      <td>13 Kasım 2025</td>
+                      <td><strong class="text-success">₺100</strong></td>
+                      <td>
+                        <div class="btn-group" role="group">
+                          <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#viewTreatmentModal">
+                            <i class="bi bi-eye"></i>
+                          </button>
+                          <button class="btn btn-sm btn-outline-warning" data-bs-toggle="modal" data-bs-target="#editTreatmentModal">
+                            <i class="bi bi-pencil"></i>
+                          </button>
+                          <button class="btn btn-sm btn-outline-danger">
+                            <i class="bi bi-trash"></i>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><span class="text-muted">#T343</span></td>
+                      <td>#232</td>
+                      <td><strong>Max</strong></td>
+                      <td>Zeynep Kaya</td>
+                      <td><span class="badge bg-warning">İlaç Tedavisi</span></td>
+                      <td>13 Kasım 2025</td>
+                      <td><strong class="text-success">₺200</strong></td>
+                      <td>
+                        <div class="btn-group" role="group">
+                          <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#viewTreatmentModal">
+                            <i class="bi bi-eye"></i>
+                          </button>
+                          <button class="btn btn-sm btn-outline-warning" data-bs-toggle="modal" data-bs-target="#editTreatmentModal">
+                            <i class="bi bi-pencil"></i>
+                          </button>
+                          <button class="btn btn-sm btn-outline-danger">
+                            <i class="bi bi-trash"></i>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><span class="text-muted">#T342</span></td>
+                      <td>#231</td>
+                      <td><strong>Charlie</strong></td>
+                      <td>Fatma Öztürk</td>
+                      <td><span class="badge bg-success">Diş Tedavisi</span></td>
+                      <td>13 Kasım 2025</td>
+                      <td><strong class="text-success">₺350</strong></td>
+                      <td>
+                        <div class="btn-group" role="group">
+                          <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#viewTreatmentModal">
+                            <i class="bi bi-eye"></i>
+                          </button>
+                          <button class="btn btn-sm btn-outline-warning" data-bs-toggle="modal" data-bs-target="#editTreatmentModal">
+                            <i class="bi bi-pencil"></i>
+                          </button>
+                          <button class="btn btn-sm btn-outline-danger">
+                            <i class="bi bi-trash"></i>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><span class="text-muted">#T341</span></td>
+                      <td>#230</td>
+                      <td><strong>Pamuk</strong></td>
+                      <td>Ahmet Şahin</td>
+                      <td><span class="badge bg-primary">Kontrol</span></td>
+                      <td>13 Kasım 2025</td>
+                      <td><strong class="text-success">₺120</strong></td>
+                      <td>
+                        <div class="btn-group" role="group">
+                          <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#viewTreatmentModal">
+                            <i class="bi bi-eye"></i>
+                          </button>
+                          <button class="btn btn-sm btn-outline-warning" data-bs-toggle="modal" data-bs-target="#editTreatmentModal">
+                            <i class="bi bi-pencil"></i>
+                          </button>
+                          <button class="btn btn-sm btn-outline-danger">
+                            <i class="bi bi-trash"></i>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><span class="text-muted">#T340</span></td>
+                      <td>#229</td>
+                      <td><strong>Rocky</strong></td>
+                      <td>Elif Yıldız</td>
+                      <td><span class="badge bg-info">Aşılama</span></td>
+                      <td>12 Kasım 2025</td>
+                      <td><strong class="text-success">₺180</strong></td>
+                      <td>
+                        <div class="btn-group" role="group">
+                          <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#viewTreatmentModal">
+                            <i class="bi bi-eye"></i>
+                          </button>
+                          <button class="btn btn-sm btn-outline-warning" data-bs-toggle="modal" data-bs-target="#editTreatmentModal">
+                            <i class="bi bi-pencil"></i>
+                          </button>
+                          <button class="btn btn-sm btn-outline-danger">
+                            <i class="bi bi-trash"></i>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><span class="text-muted">#T339</span></td>
+                      <td>#228</td>
+                      <td><strong>Bella</strong></td>
+                      <td>Can Arslan</td>
+                      <td><span class="badge bg-danger">Ameliyat</span></td>
+                      <td>12 Kasım 2025</td>
+                      <td><strong class="text-success">₺1,500</strong></td>
+                      <td>
+                        <div class="btn-group" role="group">
+                          <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#viewTreatmentModal">
+                            <i class="bi bi-eye"></i>
+                          </button>
+                          <button class="btn btn-sm btn-outline-warning" data-bs-toggle="modal" data-bs-target="#editTreatmentModal">
+                            <i class="bi bi-pencil"></i>
+                          </button>
+                          <button class="btn btn-sm btn-outline-danger">
+                            <i class="bi bi-trash"></i>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="card-footer bg-white">
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="text-muted">
+                  Toplam <strong>345</strong> tedavi - Sayfa <strong>1</strong> / <strong>44</strong>
+                </div>
+                <nav>
+                  <ul class="pagination pagination-sm mb-0">
+                    <li class="page-item disabled">
+                      <a class="page-link" href="#"><i class="bi bi-chevron-left"></i></a>
+                    </li>
+                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link" href="#">...</a></li>
+                    <li class="page-item"><a class="page-link" href="#">44</a></li>
+                    <li class="page-item">
+                      <a class="page-link" href="#"><i class="bi bi-chevron-right"></i></a>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <div class="modal fade" id="addTreatmentModal" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Yeni Tedavi Ekle</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <form id="addTreatmentForm">
+              <div class="mb-3">
+                <label for="appointmentSelect" class="form-label">Randevu Seçin <span class="text-danger">*</span></label>
+                <select class="form-select" id="appointmentSelect" required>
+                  <option value="">Bir randevu seçiniz...</option>
+                  <option value="234">#234 - Luna (13 Kasım 2025, 11:00)</option>
+                  <option value="233">#233 - Minnoş (13 Kasım 2025, 09:00)</option>
+                  <option value="232">#232 - Max (13 Kasım 2025, 10:30)</option>
+                  <option value="231">#231 - Charlie (13 Kasım 2025, 14:00)</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="treatmentType" class="form-label">Tedavi Türü <span class="text-danger">*</span></label>
+                <select class="form-select" id="treatmentType" required>
+                  <option value="">Seçiniz...</option>
+                  <option value="vaccination">Aşılama</option>
+                  <option value="surgery">Ameliyat</option>
+                  <option value="checkup">Kontrol</option>
+                  <option value="dental">Diş Tedavisi</option>
+                  <option value="medication">İlaç Tedavisi</option>
+                  <option value="emergency">Acil Müdahale</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="treatmentCost" class="form-label">Ücret (₺) <span class="text-danger">*</span></label>
+                <input type="number" class="form-control" id="treatmentCost" placeholder="0" min="0" step="0.01" required>
+              </div>
+              <div class="mb-3">
+                <label for="treatmentNotes" class="form-label">Tedavi Detayları</label>
+                <textarea class="form-control" id="treatmentNotes" rows="4" placeholder="Uygulanan tedavi detayları, kullanılan ilaçlar, dozajlar vb..."></textarea>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">İptal</button>
+            <button type="button" class="btn btn-primary">Tedaviyi Kaydet</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

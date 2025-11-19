@@ -1,0 +1,135 @@
+﻿@using EL.Entities
+@model Hayvan
+
+
+@{
+    ViewData["Title"] = "HayvanEkle";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+<main class="container-fluid px-4 py-4">
+    <div class="row mb-4">
+        <div class="col-12">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="~/Vet/Index">Anasayfa</a></li>
+                    <li class="breadcrumb-item"><a href="~/Vet/Hayvanlar">Hayvanlar</a></li>
+                    <li class="breadcrumb-item active">Hayvan Ekle</li>
+                </ol>
+            </nav>
+            <h1 class="page-title">Yeni Hayvan Ekle</h1>
+            <p class="text-muted">Kliniğe yeni bir hayvan kaydı oluşturun</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="card custom-card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Hayvan Bilgileri</h5>
+                </div>
+                <div class="card-body">
+                    <form asp-controller="Vet" asp-action="HayvanEkle" method="post">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label asp-for="Ad" class="form-label">Hayvan Adı <span class="text-danger">*</span></label>
+                                <input asp-for="Ad" class="form-control" placeholder="Örn: Max" required>
+                                <span asp-validation-for="Ad" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-6">
+                                <label asp-for="Tur" class="form-label">Tür <span class="text-danger">*</span></label>
+                                <select asp-for="Tur" class="form-select" required>
+                                    <option value="">Seçiniz...</option>
+                                    <option value="Köpek">Köpek</option>
+                                    <option value="Kedi">Kedi</option>
+                                    <option value="Kuş">Kuş</option>
+                                    <option value="Tavşan">Tavşan</option>
+                                    <option value="Hamster">Hamster</option>
+                                    <option value="Diğer">Diğer</option>
+                                </select>
+                                <span asp-validation-for="Tur" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label asp-for="Cins" class="form-label">Cins</label>
+                                <input asp-for="Cins" class="form-control" placeholder="Örn: Golden Retriever, Tekir">
+                                <span asp-validation-for="Cins" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-6">
+                                <label asp-for="Cinsiyet" class="form-label">Cinsiyet <span class="text-danger">*</span></label>
+                                <select asp-for="Cinsiyet" class="form-select" required>
+                                    <option value="">Seçiniz...</option>
+                                    <option value="0">Erkek</option>
+                                    <option value="1">Dişi</option>
+                                </select>
+                                <span asp-validation-for="Cinsiyet" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label asp-for="DogumTarihi" class="form-label">Doğum Tarihi</label>
+                                <input asp-for="DogumTarihi" type="date" class="form-control">
+                                <span asp-validation-for="DogumTarihi" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-6">
+                                <label asp-for="Kilo" class="form-label">Kilo</label>
+                                <div class="input-group">
+                                    <input asp-for="Kilo" type="number" class="form-control" placeholder="0" min="0" step="0.1">
+                                    <span class="input-group-text">kg</span>
+                                </div>
+                                <span asp-validation-for="Kilo" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                                <label asp-for="Renk" class="form-label">Renk</label>
+                                <input asp-for="Renk" class="form-control" placeholder="Örn: Sarı-Beyaz, Siyah">
+                                <span asp-validation-for="Renk" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3"> 
+                            <div class="col-md-12">
+                                <label asp-for="SahipId" class="form-label">Sahip</label>
+                                <select asp-for="SahipId" asp-items="ViewBag.uyeler" class="form-select">
+                                    
+                                </select>
+                                <span asp-validation-for="SahipId" class="text-danger"></span>
+
+                            </di>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label asp-for="TibbiGecmis" class="form-label">Tıbbi Geçmiş</label>
+                            <textarea asp-for="TibbiGecmis" class="form-control" rows="4" placeholder="Hayvanın daha önceki hastalıkları, aşı geçmişi, ameliyatları vb. bilgileri buraya yazabilirsiniz..."></textarea>
+                            <span asp-validation-for="TibbiGecmis" class="text-danger"></span>
+                            <div class="form-text">Hayvanın sağlık geçmişi hakkında bilmeniz gereken önemli notlar</div>
+                        </div>
+
+                        <div class="alert alert-info d-flex align-items-start">
+                            <i class="bi bi-info-circle-fill me-2 mt-1"></i>
+                            <div>
+                                <strong>Not:</strong> Yıldız (*) ile işaretlenmiş alanlar zorunludur. Lütfen tüm zorunlu alanları doldurunuz.
+                            </div>
+                        </div>
+
+                        <div class="d-flex gap-2 justify-content-end">
+                            <a href="~/Vet/Hayvanlar" class="btn btn-outline-secondary">
+                                <i class="bi bi-x-circle me-1"></i>İptal
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-check-circle me-1"></i>Kaydet
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

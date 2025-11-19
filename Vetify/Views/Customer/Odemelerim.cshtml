@@ -1,0 +1,82 @@
+﻿@using Vetify.Models.ViewModel
+@model OdemeViewModel
+
+@{
+    ViewData["Title"] = "Odemelerim";
+    Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+}
+
+
+<main class="container-fluid px-4 py-4">
+    <!-- Page Header -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <h1 class="page-title mb-3">Ödemelerim</h1>
+            <p class="text-muted">Ödeme geçmişiniz ve kalan borç bilgileriniz</p>
+        </div>
+    </div>
+
+    <!-- Outstanding Debt Card -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card custom-card border-danger">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center flex-wrap">
+                        <div class="mb-3 mb-md-0">
+                            <h6 class="text-danger mb-1">
+                                <i class="bi bi-exclamation-triangle me-2"></i>Tüm işlemler
+                            </h6>
+                            <p class="text-muted mb-0">Toplam işlemlerin maaliyeti</p>
+                        </div>
+                        <div class="text-md-end">
+                            <h4 class="text-danger mb-1">₺@Model.ToplamOdenecek</h4>
+                            <div class="d-flex gap-3 justify-content-md-end">
+                                <small class="text-muted">$36.50 USD</small>
+                                <small class="text-muted">€33.07 EUR</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Payment Cards -->
+    <div class="row">
+        <div class="col-12">
+            <!-- Payment 1 -->
+            @foreach(var x in Model.Odemeler)
+            {
+                <div class="card custom-card mb-3">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-md-2">
+                                <div class="text-center">
+                                    <div class="stat-icon bg-success-soft mx-auto mb-2">
+                                        <i class="bi bi-credit-card text-success"></i>
+                                    </div>
+                                    <small class="text-muted">@x.OdemeTarihi.ToString("D")</small>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <h6 class="mb-1">Randevu Ödemesi</h6>
+                                <p class="text-muted mb-0">Randevu: #@x.Id - @x.Randevu.Hayvan.Ad</p>
+                                <p class="text-muted mb-0"><small>@x.Randevu.</small></p>
+                            </div>
+                            <div class="col-md-5 text-md-end mt-3 mt-md-0">
+                                <h5 class="text-success mb-1">₺@x.Tutar</h5>
+                                <div class="d-flex justify-content-md-end gap-3">
+                                    <small class="text-muted">$13.14 USD</small>
+                                    <small class="text-muted">€11.90 EUR</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+</main>
+
+
